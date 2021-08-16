@@ -18,17 +18,17 @@ def insertion_sort(x: List) -> List:
     length = len(a_list)
 
     for i in range(length):
-        for current_idx in range(i, 0, -1):
-            swapped = False
-            previous_index = current_idx - 1
+        idx_to_insert_at = None
 
-            if a_list[current_idx] < a_list[previous_index]:
-                swapped = True
-                a_list[current_idx], a_list[previous_index] = a_list[previous_index], a_list[current_idx]
-
-            # If no swap takes place, it means that the list upto the current index is fully sorted
-            # The inner loop can therefore be safely terminated, and the sorting process moved onto the next index
-            if not swapped:
+        for current_idx in range(i - 1, -1, -1):
+            if a_list[current_idx] > a_list[i]:
+                idx_to_insert_at = current_idx
+            else:
+                # The list upto the current_idx is fully sorted with elements less than the element at index i
+                # The inner loop can thus be safely terminated, and the sorting process moved onto the next index
                 break
+
+        if idx_to_insert_at is not None:
+            a_list.insert(idx_to_insert_at, a_list.pop(i))
 
     return a_list

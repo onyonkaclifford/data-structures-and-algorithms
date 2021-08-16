@@ -13,24 +13,21 @@ def merge_sort(x: List) -> List:
     :param x: list to be sorted
     :return: list
     """
-    if len(x) <= 1:
+    length = len(x)
+
+    if length <= 1:
         return x
 
-    left = []
-    right = []
-    for i, element in enumerate(x):
-        left.append(element) if i < len(x)/2 else right.append(element)
-    left = merge_sort(left)
-    right = merge_sort(right)
+    mid_idx = length // 2
+    left = merge_sort(x[0:mid_idx])
+    right = merge_sort(x[mid_idx:length])
 
     result = []
     while len(left) > 0 and len(right) > 0:
         if left[0] <= right[0]:
-            result.append(left[0])
-            left = left[1:]
+            result.append(left.pop(0))
         else:
-            result.append(right[0])
-            right = right[1:]
+            result.append(right.pop(0))
     result.extend(left)
     result.extend(right)
 

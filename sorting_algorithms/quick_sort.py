@@ -39,16 +39,6 @@ def quick_sort(x: List) -> List:
                 elif y[i] > pivot and i < pivot_idx:
                     y.insert(pivot_idx, y.pop(i))
                     pivot_idx -= 1
-                elif y[i] == pivot:
-                    if i == pivot_idx:
-                        i += 1
-                        continue
-                    y.insert(pivot_idx, y.pop(i))
-                    values_equal_to_pivot += 1
-                    if i < pivot_idx:
-                        pivot_idx -= 1
-                    else:
-                        i += 1
                 else:
                     i += 1
 

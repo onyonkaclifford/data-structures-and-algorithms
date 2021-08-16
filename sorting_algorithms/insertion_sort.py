@@ -3,10 +3,11 @@ from typing import List
 
 
 def insertion_sort(x: List) -> List:
-    """ Insertion sort compares elements and moves them to their correct position by repeatedly swapping an element
-    with adjecent elements till it arrives at its correct position. It has an average time complexity of Θ(n^2) due to
-    the nesting of its two loops. Time complexity for the worst case, when the list is sorted in reverse order, is
-    O(n^2). Time complexity for the best case, when the list is already sorted in the correct order, is Ω(n).
+    """ Insertion sort compares elements and moves them to their correct position by repeatedly comparing an element
+    with previous elements in the list until its correct position is located, then moving the element to its correct
+    position. It has an average time complexity of Θ(n^2) due to the nesting of its two loops. Time complexity for the
+    worst case, when the list is sorted in reverse order, is O(n^2). Time complexity for the best case, when the list
+    is already sorted in the correct order, is Ω(n).
 
     >>> insertion_sort([4, 2, 3, 1, 0, 5])
     [0, 1, 2, 3, 4, 5]

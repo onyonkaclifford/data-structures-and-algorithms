@@ -3,8 +3,9 @@ from typing import List
 
 
 def quick_sort(x: List) -> List:
-    """ Quick sort repeatedly moves smaller elements left and larger elements right relative to a pivot till all
-    elements are sorted. It has an average time complexity of Θ(nlogn). Time complexity for the worst case, when the
+    """ Quick sort repeatedly moves smaller elements left and larger elements right relative to a pivot that divides
+    the list into two smaller lists. The process is recursively repeated for the two smaller lists till all elements
+    are fully sorted. It has an average time complexity of Θ(nlogn). Time complexity for the worst case, when the
     pivot creates the most unbalanced divisions for all recursions, is O(n^2). Time complexity for the best case, when
     the median is always chosen as the pivot, is Ω(nlogn).
 

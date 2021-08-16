@@ -2,9 +2,10 @@ from typing import List
 
 
 def merge_sort(x: List) -> List:
-    """ Merge sort repeatedly divides a list to smaller lists of single elements, then combines these lists to form a
-    single sorted list of the original elements. It has an average time complexity of Θ(nlogn). Time complexity
-    for the worst case is O(nlogn). Time complexity for the best case is Ω(nlogn).
+    """ Merge sort divides a list into two smaller lists, and recursively repeats the process on the two smaller lists
+    till lists of single elements are obtained. These smaller lists are then combined to form a single sorted list of
+    the original elements. It has an average time complexity of Θ(nlogn). Time complexity for the worst case is
+    O(nlogn). Time complexity for the best case is Ω(nlogn).
 
     >>> merge_sort([4, 2, 3, 1, 0, 5])
     [0, 1, 2, 3, 4, 5]

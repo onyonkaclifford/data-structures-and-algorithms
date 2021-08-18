@@ -11,7 +11,7 @@ def merge_sort(x: List) -> List:
     [0, 1, 2, 3, 4, 5]
 
     :param x: list to be sorted
-    :return: list
+    :return: new sorted list
     """
     length = len(x)
 

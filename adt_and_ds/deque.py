@@ -22,7 +22,7 @@ class Deque:
         >>> deque.is_empty()
         False
 
-        :return: bool
+        :return: True if deque is empty, else False
         """
         return len(self.__data_store) == 0
 

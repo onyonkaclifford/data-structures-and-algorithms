@@ -23,7 +23,7 @@ class Stack:
         >>> stack.is_empty()
         False
 
-        :return: bool
+        :return: True if stack is empty, else False
         """
         return len(self.__data_store) == 0
 

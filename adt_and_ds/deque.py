@@ -13,7 +13,7 @@ class Deque:
         return len(self.__data_store)
 
     def is_empty(self):
-        """ Check if deque contains no elements
+        """ Check if deque contains no elements. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.is_empty()
@@ -27,7 +27,7 @@ class Deque:
         return len(self.__data_store) == 0
 
     def enqueue_first(self, x):
-        """ Insert element x to the front of the deque
+        """ Insert element x to the front of the deque. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.enqueue_first(1)
@@ -39,7 +39,7 @@ class Deque:
         self.__data_store.insert(0, x)
 
     def enqueue_last(self, x):
-        """ Insert element x to the end of the deque
+        """ Insert element x to the end of the deque. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.enqueue_last(1)
@@ -51,7 +51,7 @@ class Deque:
         self.__data_store.append(x)
 
     def dequeue_first(self):
-        """ Remove first element of the deque and return it
+        """ Remove first element of the deque and return it. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.enqueue_first(1)
@@ -69,7 +69,7 @@ class Deque:
         return self.__data_store.pop(0)
 
     def dequeue_last(self):
-        """ Remove last element of the deque and return it
+        """ Remove last element of the deque and return it. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.enqueue_first(1)
@@ -87,7 +87,7 @@ class Deque:
         return self.__data_store.pop()
 
     def first(self):
-        """ Return first element of the deque without removing it
+        """ Return first element of the deque without removing it. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.enqueue_first(1)
@@ -107,7 +107,7 @@ class Deque:
         return self.__data_store[0]
 
     def last(self):
-        """ Return last element of the deque without removing it
+        """ Return last element of the deque without removing it. Time complexity: O(1).
 
         >>> deque = Deque()
         >>> deque.enqueue_first(1)

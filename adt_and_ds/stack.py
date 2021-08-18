@@ -14,7 +14,7 @@ class Stack:
         return len(self.__data_store)
 
     def is_empty(self):
-        """ Check if stack contains no elements
+        """ Check if stack contains no elements. Time complexity: O(1).
 
         >>> stack = Stack()
         >>> stack.is_empty()
@@ -28,7 +28,7 @@ class Stack:
         return len(self.__data_store) == 0
 
     def push(self, x):
-        """ Insert element x to the top of the stack
+        """ Insert element x to the top of the stack. Time complexity: O(1).
 
         >>> stack = Stack()
         >>> stack.push(1)
@@ -40,7 +40,7 @@ class Stack:
         self.__data_store.append(x)
 
     def pop(self):
-        """ Remove an element from the top of the stack and return it
+        """ Remove an element from the top of the stack and return it. Time complexity: O(1).
 
         >>> stack = Stack()
         >>> stack.push(1)
@@ -58,7 +58,7 @@ class Stack:
         return self.__data_store.pop()
 
     def peek(self):
-        """ Return element at the top of the stack without removing it
+        """ Return element at the top of the stack without removing it. Time complexity: O(1).
 
         >>> stack = Stack()
         >>> stack.push(1)

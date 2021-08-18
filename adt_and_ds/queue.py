@@ -14,7 +14,7 @@ class Queue:
         return len(self.__data_store)
 
     def is_empty(self):
-        """ Check if queue contains no elements
+        """ Check if queue contains no elements. Time complexity: O(1).
 
         >>> queue = Queue()
         >>> queue.is_empty()
@@ -28,7 +28,7 @@ class Queue:
         return len(self.__data_store) == 0
 
     def enqueue(self, x):
-        """ Insert element x to the end of the queue
+        """ Insert element x to the end of the queue. Time complexity: O(1).
 
         >>> queue = Queue()
         >>> queue.enqueue(1)
@@ -40,7 +40,7 @@ class Queue:
         self.__data_store.append(x)
 
     def dequeue(self):
-        """ Remove first element of the queue and return it
+        """ Remove first element of the queue and return it. Time complexity: O(1).
 
         >>> queue = Queue()
         >>> queue.enqueue(1)
@@ -58,7 +58,7 @@ class Queue:
         return self.__data_store.pop(0)
 
     def first(self):
-        """ Return first element of the queue without removing it
+        """ Return first element of the queue without removing it. Time complexity: O(1).
 
         >>> queue = Queue()
         >>> queue.enqueue(1)

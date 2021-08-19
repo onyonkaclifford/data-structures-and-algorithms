@@ -14,4 +14,4 @@ object may be used to organise the data.
 Examples: stack, queue, deque.
 
 ## Tests
-To run tests: `python -m doctest -v *.py`
+To run tests: `python -m doctest -v *.py linked_lists/*.py`

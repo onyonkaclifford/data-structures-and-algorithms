@@ -1,540 +1,202 @@
-from typing import Union
+from tree import Empty, Tree
+from binary_tree import BinaryTree
 
 
-class Empty(Exception):
-    pass
+class BinarySearchTree(BinaryTree):
+    """ A binary search tree is a binary tree whose left child of each node contain an item less in value than itself,
+    and the right child an item higher in value than itself. An in-order traversal of the binary search tree results
+    to items arranged in ascending order.
 
-
-class BinarySearchTree:
-    class _Node:
-        def __init__(self, data, parent=None, left=None, right=None):
-            self.data = data
-            self.parent = parent
-            self.left = left
-            self.right = right
-
-    class _Position:
-        """ A representation of the position of a node within a tree """
-
-        def __init__(self, belongs_to, node):
-            self.__variables = {"belongs_to": belongs_to}
-            self.__node = node
-
-        def is_owned_by(self, owner):
-            """ Check whether position belongs to the tree, owner. Time complexity: O(1).
-
-            >>> tree1, tree2 = BinarySearchTree(), BinarySearchTree()
-            >>> tree1.insert(0)
-            >>> position1 = tree1.get_root()
-            >>> position1.is_owned_by(tree1)
-            True
-            >>> position1.is_owned_by(tree2)
-            False
-            """
-            return owner is self.__variables["belongs_to"]
-
-        def manipulate_variables(self, owner, method: str, *params):
-            """ Manipulate member variables of this position. Methods of the owner list are the only ones that can call
-            this method. Time complexity: O(1).
-
-            >>> tree1, tree2 = BinarySearchTree(), BinarySearchTree()
-            >>> tree1.insert(0)
-            >>> position1 = tree1.get_root()
-            >>> position1.manipulate_variables(tree2, "dummy_method", "param1", "param2")
-            Traceback (most recent call last):
-            ...
-            ValueError: Position doesn't belong to the passed owner
-            """
-            if not self.is_owned_by(owner):
-                raise ValueError("Position doesn't belong to the passed owner")
-            return getattr(owner, method)(self.__variables, *params)
-
-        def manipulate_node(self, owner, method: str, *params):
-            """ Manipulate the node held by this position. Methods of the owner list are the only ones that can call
-            this method. Time complexity: O(1).
-
-            >>> tree1, tree2 = BinarySearchTree(), BinarySearchTree()
-            >>> tree1.insert(0)
-            >>> position1 = tree1.get_root()
-            >>> position1.manipulate_node(tree2, "dummy_method", "param1", "param2")
-            Traceback (most recent call last):
-            ...
-            ValueError: Position doesn't belong to the passed owner
-            """
-            if not self.is_owned_by(owner):
-                raise ValueError("Position doesn't belong to the passed owner")
-            return getattr(owner, method)(self.__node, *params)
-
-        def get_data(self):
-            """ Returns the data stored by the node held by this position. Time complexity: O(1).
-
-            >>> tree1 = BinarySearchTree()
-            >>> tree1.insert(0)
-            >>> position1 = tree1.get_root()
-            >>> position1.get_data()
-            0
-            """
-            return self.__node.data
-
-    def __init__(self):
-        self.__root: Union[BinarySearchTree._Node, None] = None
-
-    def __repr__(self):
-        """ Returns a string representation of the tree. Time complexity: O(n).
-
+    Instantiating a binary search tree
         >>> tree = BinarySearchTree()
-        >>> tree
-        <BLANKLINE>
-        >>> tree.insert(4)
-        >>> tree
-        4
-        >>> tree.insert(2)
-        >>> tree.insert(3)
-        >>> tree.insert(1)
-        >>> tree.insert(6)
-        >>> tree.insert(7)
+
+    Inserting an item to the tree
         >>> tree.insert(5)
-        >>> tree
-        4(2(1, 3), 6(5, 7))
+        >>> tree.insert(4)
+        >>> tree.insert(6)
+        >>> tree.insert(10)
 
-        :return: string representation of the tree
-        """
-        def helper(current_position):
-            left_child = self.get_left_child(current_position)
-            right_child = self.get_right_child(current_position)
-            children = []
-
-            if left_child is not None:
-                children.append(left_child)
-            if right_child is not None:
-                children.append(right_child)
-
-            num_of_children = len(children)
-            last_child_idx = num_of_children - 1
-
-            data_dict["string_data"] += f"{current_position.get_data()}"
-
-            for i, j in enumerate(children):
-                data_dict["string_data"] += "(" if i == 0 else ", "
-                helper(j)
-                data_dict["string_data"] += ")" if i == last_child_idx else ""
-
-        if self.is_empty():
-            return ""
-
-        data_dict = {"string_data": ""}
-        helper(BinarySearchTree._Position(self, self.__root))
-        return data_dict["string_data"]
-
-    @staticmethod
-    def _validate_node(node):
-        """ Helper function that checks if the node passed is a tree node. Returns the node passed if the validation
-        passes, elses raises a TypeError. Time complexity: O(1).
-
-        >>> node_1, node_2 = BinarySearchTree._Node(0), object()
-        >>> BinarySearchTree._validate_node(node_1) is node_1
-        True
-        >>> BinarySearchTree._validate_node(node_2) is node_2
-        Traceback (most recent call last):
-        ...
-        TypeError: Not a tree node
-        """
-        if not isinstance(node, BinarySearchTree._Node):
-            raise TypeError("Not a tree node")
-        return node
-
-    @staticmethod
-    def _invalidate_position(variables):
-        """ Helper function that sets the belongs_to key of a dictionary to None. Time complexity: O(1).
-
-        >>> a_dict1 = {"belongs_to": 8, "dummy": 0}
-        >>> a_dict1
-        {'belongs_to': 8, 'dummy': 0}
-        >>> a_dict2 = BinarySearchTree._invalidate_position(a_dict1)
-        >>> a_dict2
-        {'belongs_to': None, 'dummy': 0}
-        """
-        variables["belongs_to"] = None
-        return variables
-
-    def is_empty(self):
-        """ Returns True if tree is empty, else False. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.is_empty()
-        True
-        >>> tree.insert(1)
+    Check if a tree is empty
         >>> tree.is_empty()
         False
+        >>> BinarySearchTree().is_empty()
+        True
 
-        :return: True if tree is empty, else False
-        """
-        return self.__root is None
-
-    def is_root(self, position: _Position):
-        """ Returns True if the passed position holds the root node, else False. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
+    Get root position
         >>> root = tree.get_root()
-        >>> right = tree.get_right_child(root)
+
+    Get item corresponding to a certain position
+        >>> root.get_data()
+        5
+
+    Check if a position is owned by some tree
+        >>> root.is_owned_by(tree)
+        True
+        >>> root.is_owned_by(BinarySearchTree())
+        False
+
+    Get children of some position
+        >>> children = tree.get_children(root)
+        >>> [i.get_data() for i in children]
+        [4, 6]
+
+    Get left child of some position
+        >>> left_child = tree.get_left_child(root)
+        >>> left_child.get_data()
+        4
+
+    Get right child of some position
+        >>> right_child = tree.get_right_child(root)
+        >>> right_child.get_data()
+        6
+
+    Deleting an item from the tree
+        >>> position_to_delete = tree.get_right_child(right_child)
+        >>> tree.delete(position_to_delete)
+
+    Check if a position contains the root
         >>> tree.is_root(root)
         True
-        >>> tree.is_root(right)
+        >>> tree.is_root(left_child)
         False
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
 
-        node = position.manipulate_node(self, "_validate_node")
-
-        return node is self.__root
-
-    def is_leaf(self, position: _Position):
-        """ Returns True if the passed position holds a leaf node, else False. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> root = tree.get_root()
-        >>> right = tree.get_right_child(root)
+    Check if a position contains a leaf node
+        >>> tree.is_leaf(left_child)
+        True
         >>> tree.is_leaf(root)
         False
-        >>> tree.is_leaf(right)
-        True
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
 
-        node = position.manipulate_node(self, "_validate_node",)
-
-        return node.left is None and node.right is None
-
-    def get_root(self):
-        """ Returns the root position. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.get_root() is None
-        True
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> root = tree.get_root()
-        >>> tree.is_root(root)
-        True
-        """
-        if self.is_empty():
-            return None
-        else:
-            return BinarySearchTree._Position(self, self.__root)
-
-    def get_parent(self, position: _Position):
-        """ Returns the parent of the given position. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> root = tree.get_root()
-        >>> right = tree.get_right_child(root)
-        >>> parent = tree.get_parent(right)
-        >>> parent.get_data()
-        1
+    Get parent of some position
+        >>> tree.get_parent(left_child).get_data()
+        5
         >>> tree.get_parent(root) is None
         True
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
 
-        node = position.manipulate_node(self, "_validate_node")
+    Get siblings of some position
+        >>> siblings = tree.get_siblings(left_child)
+        >>> [i.get_data() for i in siblings]
+        [6]
 
-        if self.is_root(BinarySearchTree._Position(self, node)):
-            return None
-        else:
-            return BinarySearchTree._Position(self, node.parent)
-
-    def get_left_child(self, position: _Position):
-        """ Returns the left child of the given position. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> root = tree.get_root()
-        >>> left = tree.get_left_child(root)
-        >>> left.get_data()
+    Get height of some position
+        >>> tree.get_height_of_node(left_child)
         0
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
-
-        node = position.manipulate_node(self, "_validate_node")
-
-        if node.left is None:
-            return None
-        else:
-            return BinarySearchTree._Position(self, node.left)
-
-    def get_right_child(self, position: _Position):
-        """ Returns the right child of the given position. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> root = tree.get_root()
-        >>> right = tree.get_right_child(root)
-        >>> right.get_data()
-        2
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
-
-        node = position.manipulate_node(self, "_validate_node")
-
-        if node.right is None:
-            return None
-        else:
-            return BinarySearchTree._Position(self, node.right)
-
-    def get_sibling(self, position: _Position):
-        """ Returns the sibling of the given position. Time complexity: O(1).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> root = tree.get_root()
-        >>> left = tree.get_left_child(root)
-        >>> right = tree.get_right_child(root)
-        >>> tree.get_sibling(left).get_data()
-        2
-        >>> tree.get_sibling(right).get_data()
-        0
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
-
-        node = position.manipulate_node(self, "_validate_node")
-        parent = node.parent
-
-        return BinarySearchTree._Position(self, parent.left) if node is not parent.left else \
-            BinarySearchTree._Position(self, parent.right)
-
-    def get_height_of_node(self, position: _Position):
-        """ Returns the number of edges between a node and the farthest leaf among its descendants. Time complexity:
-        O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> root = tree.get_root()
         >>> tree.get_height_of_node(root)
         1
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
 
-        if self.is_leaf(position):
-            return 0
-
-        children = []
-        left = self.get_left_child(position)
-        right = self.get_right_child(position)
-
-        if left is not None:
-            children.append(left)
-        if right is not None:
-            children.append(right)
-
-        return 1 + max(self.get_height_of_node(p) for p in children)
-
-    def get_height_of_tree(self):
-        """ Returns the number of edges between the root node and the farthest leaf. Time complexity: O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
+    Get height of tree
         >>> tree.get_height_of_tree()
         1
-        """
-        if self.is_empty():
-            raise Empty("Tree is empty")
-        return self.get_height_of_node(BinarySearchTree._Position(self, self.__root))
 
-    def get_depth_of_node(self, position: _Position):
-        """ Returns the number of edges between a node and the root. Time complexity: O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> root = tree.get_root()
-        >>> left = tree.get_left_child(root)
-        >>> tree.get_depth_of_node(left)
+    Get depth of some position
+        >>> tree.get_depth_of_node(left_child)
         1
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
+        >>> tree.get_depth_of_node(root)
+        0
 
-        if self.is_root(position):
-            return 0
-        return 1 + self.get_depth_of_node(self.get_parent(position))
-
-    def get_depth_of_tree(self):
-        """ Returns the number of edges between the root and the farthest leaf. Time complexity: O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
+    Get depth of tree
         >>> tree.get_depth_of_tree()
         1
-        """
-        return self.get_height_of_tree()
 
-    def get_level_of_node(self, position: _Position):
-        """ Returns the number of nodes between a node and the root, inclusive of itself. Time complexity: O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> root = tree.get_root()
-        >>> left = tree.get_left_child(root)
-        >>> tree.get_level_of_node(left)
+    Get level of some position
+        >>> tree.get_level_of_node(left_child)
         2
-        """
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
+        >>> tree.get_level_of_node(root)
+        1
 
-        return 1 + self.get_depth_of_node(position)
-
-    def get_highest(self):
-        """ Returns the highest value in the tree. Time complexity: O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> tree.get_highest().get_data()
-        2
-        """
-        if self.is_empty():
-            raise Empty("Tree is empty")
-
-        current_node = self.__root
-
-        while current_node.right is not None:
-            current_node = current_node.right
-
-        return BinarySearchTree._Position(self, current_node)
-
-    def get_lowest(self):
-        """ Returns the lowest value in the tree. Time complexity: O(n).
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> tree.get_lowest().get_data()
+    Get length of tree
+        >>> len(tree)
+        3
+        >>> len(BinarySearchTree())
         0
-        """
-        if self.is_empty():
-            raise Empty("Tree is empty")
 
-        current_node = self.__root
+    Get string reresentation of tree
+        >>> tree
+        5(4, 6)
+        >>> str(tree)
+        '5(4, 6)'
 
-        while current_node.left is not None:
-            current_node = current_node.left
+    Get tree iterable
+        >>> tree_iterable = iter(tree)
+        >>> next(tree_iterable).get_data()
+        5
 
-        return BinarySearchTree._Position(self, current_node)
+    Get next item of tree iterator
+        >>> next(tree).get_data()
+        4
+    """
+    def __init__(self):
+        super().__init__()
 
     def insert(self, data):
-        """ Inserts a value into the tree. Time complexity: O(n).
+        super().insert(data)
 
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> tree
-        1(0, 2)
-        """
-        node = BinarySearchTree._Node(data)
+        node = Tree._Node(data, children=[None, None])
+
         if self.is_empty():
-            self.__root = node
+            self._root = node
         else:
-            current_node = self.__root
+            current_node = self._root
             previous_node = current_node.parent
 
             while current_node is not None:
                 previous_node = current_node
+                left_child = current_node.children[0]
+                right_child = current_node.children[1]
                 if data == current_node.data:
                     raise ValueError("Data already exists in tree")
                 elif data > current_node.data:
-                    current_node = current_node.right
+                    current_node = right_child
                 else:
-                    current_node = current_node.left
+                    current_node = left_child
 
             node.parent = previous_node
             if data > previous_node.data:
-                previous_node.right = node
+                previous_node.children[1] = node
             else:
-                previous_node.left = node
+                previous_node.children[0] = node
 
-    def delete(self, position: _Position):
-        """ Deletes a value from the tree.
-
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> tree
-        1(0, 2)
-        >>> root = tree.get_root()
-        >>> right = tree.get_right_child(root)
-        >>> tree.delete(right)
-        >>> tree
-        1(0)
-        """
+    def delete(self, position: Tree._Position):
         if not position.is_owned_by(self):
             raise ValueError("Position doesn't belong to this tree")
+
+        super().delete(position)
 
         def insert_node(node_to_insert, is_node_left_child, parent_node):
             if node_to_insert is not None:
                 node_to_insert.parent = parent_node
             if is_node_left_child is not None:
                 if is_node_left_child:
-                    parent_node.left = node_to_insert
+                    parent_node.children[0] = node_to_insert
                 else:
-                    parent_node.right = node_to_insert
+                    parent_node.children[1] = node_to_insert
 
         def delete_node(node_to_delete, is_root):
             parent = node_to_delete.parent
+            left = node_to_delete.children[0]
+            right = node_to_delete.children[1]
             is_left_child = None if parent is None else node_to_delete.data < parent.data
 
-            if node_to_delete.left is None:
-                insert_node(node_to_delete.right, is_left_child, parent)
+            if left is None:
+                insert_node(right, is_left_child, parent)
                 if is_root:
-                    self.__root = node_to_delete.right
+                    self._root = right
             else:
-                current_node = node_to_delete.left
-                right_child = current_node.right
+                current_node = left
+                right_child = current_node.children[1]
 
                 if right_child is None:
-                    current_node.right = node_to_delete.right
+                    current_node.children[1] = right
                     insert_node(current_node, is_left_child, parent)
                     if is_root:
-                        self.__root = current_node
+                        self._root = current_node
                 else:
-                    new_node = BinarySearchTree._Node(right_child.data, left=current_node, right=node_to_delete.right)
+                    new_node = Tree._Node(right_child.data, children=[current_node, right])
 
                     insert_node(new_node, is_left_child, parent)
                     if is_root:
-                        self.__root = new_node
+                        self._root = new_node
 
-                    delete_node(right_child, None)
+                    delete_node(right_child, False)
 
         node = position.manipulate_node(self, "_validate_node")
         is_root_node = self.is_root(position)
@@ -546,29 +208,25 @@ class BinarySearchTree:
         """ Returns the position of a value within the tree, or None if the value doesn't exist in the tree. Time
         complexity: O(n).
 
-        >>> tree = BinarySearchTree()
-        >>> tree.insert(1)
-        >>> tree.insert(2)
-        >>> tree.insert(0)
-        >>> tree.search(100) is None
-        True
-        >>> tree.search(2).get_data()
-        2
+        :param data: the item to search
+        :returns: the position of the item if it exists in the tree, else None
         """
         if self.is_empty():
             raise Empty("Tree is empty")
 
-        current_node = self.__root
+        current_node = self._root
 
         while current_node is not None:
+            left_child = current_node.children[0]
+            right_child = current_node.children[1]
             if data == current_node.data:
                 break
             elif data > current_node.data:
-                current_node = current_node.right
+                current_node = right_child
             else:
-                current_node = current_node.left
+                current_node = left_child
 
         if current_node is None:
             return None
         else:
-            return BinarySearchTree._Position(self, current_node)
+            return Tree._Position(self, current_node)

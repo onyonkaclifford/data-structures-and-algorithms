@@ -1,0 +1,413 @@
+from abc import ABC, abstractmethod
+from typing import Generator, List, Union
+
+
+class Empty(Exception):
+    pass
+
+
+class Tree(ABC):
+    """ A tree is a hierarchical collection of nodes containing items, with each node having a unique parent and zero,
+    one or many children items. The topmost element in a non-empty tree, the root, has no parent. Tree vocabularies
+    include, but are not limited to:
+
+    1. Root - the topmost element in a non-empty tree, it has no parent
+    2. Leaf - a node with zero children
+    3. Siblings - nodes that share a parent node
+    4. Edge - a pair of nodes such the one is the parent of the other
+    5. Path - a collection of nodes such that any pair of adjacent nodes have a parent/child relationship
+    6. Height - number of edges between a node and it's furthest leaf
+    7. Depth - number of edges between a node and the root
+    8. Level - number of nodes in the path between a node and the root, inclusive of both the node itself and the root
+    9. Ordered tree - a tree with a meaningful organisation among its nodes such that its nodes can be arranged in a
+        linear manner from first to last
+    """
+
+    class _Node:
+        def __init__(self, data, parent=None, children: Union[List, None] = None):
+            self.data = data
+            self.parent = parent
+            self.children = children if children is not None else []
+
+    class _Position:
+        """ A representation of the position of a node within a tree """
+
+        def __init__(self, belongs_to, node):
+            self.__variables = {"belongs_to": belongs_to}
+            self.__node = node
+
+        def is_owned_by(self, owner):
+            """ Check whether position belongs to the tree, owner. Time complexity: O(1).
+
+            :param owner: object to check whether it's the owner of this position
+            :returns: True of the position is owned by the object passed, else False
+            """
+            return owner is self.__variables["belongs_to"]
+
+        def manipulate_variables(self, owner, method: str, *params):
+            """ Manipulate member variables of this position. Methods of the owner list are the only ones that can call
+            this method. Time complexity: O(1).
+
+            :param owner: tree object that owns this position
+            :param method: method name of tree object that will manipulate the member variables of this position
+            :param params: extra optional parameters to pass to the method
+            :returns: the return value of the tree method whose name is passed
+            """
+            if not self.is_owned_by(owner):
+                raise ValueError("Position doesn't belong to the passed owner")
+            return getattr(owner, method)(self.__variables, *params)
+
+        def manipulate_node(self, owner, method: str, *params):
+            """ Manipulate the node held by this position. Methods of the owner list are the only ones that can call
+            this method. Time complexity: O(1).
+
+            :param owner: tree object that owns this position
+            :param method: method name of tree object that will manipulate the node contained in this position
+            :param params: extra optional parameters to pass to the method
+            :returns: the return value of the tree method whose name is passed
+            """
+            if not self.is_owned_by(owner):
+                raise ValueError("Position doesn't belong to the passed owner")
+            return getattr(owner, method)(self.__node, *params)
+
+        def get_data(self):
+            """ Returns the data stored by the node held by this position. Time complexity: O(1).
+
+            :returns: data stored in node contained in this position
+            """
+            return self.__node.data
+
+    def __init__(self):
+        self._root: Union[Tree._Node, None] = None
+        self.__length = 0
+        self.__generator: Union[Generator, None] = None
+
+    def __len__(self):
+        """ Returns total number of items in tree. Time complexity: O(1).
+
+        :return: total number of items in tree
+        """
+        return self.__length
+
+    def __repr__(self):
+        """ Returns a string representation of the tree. Time complexity: O(n).
+
+        :return: the string representation of the tree
+        """
+        def helper(current_position):
+            children = self.get_children(current_position)
+
+            num_of_children = len(children)
+            last_child_idx = num_of_children - 1
+
+            data_dict["string_data"] += f"{current_position.get_data()}"
+
+            for i, j in enumerate(children):
+                data_dict["string_data"] += "(" if i == 0 else ", "
+                helper(j)
+                data_dict["string_data"] += ")" if i == last_child_idx else ""
+
+        if self.is_empty():
+            return ""
+
+        data_dict = {"string_data": ""}
+        helper(Tree._Position(self, self._root))
+        return data_dict["string_data"]
+
+    def __iter__(self):
+        """ Returns a tree iterable. Time complexity: O(1).
+
+        :return: tree iterable
+        """
+        return self
+
+    def __next__(self):
+        """ Returns next item of tree iterator, implemented based on level-order traversal. Time complexity: O(1).
+
+        :return: next item
+        :raises StopIteration: when the cursor denoting the current item surpasses the last item of the tree
+        """
+        if self.__generator is None:
+            self.__generator = self.traverse_tree_level_order()
+
+        try:
+            next_position = next(self.__generator)
+        except StopIteration as e:
+            self.__generator = None
+            raise e
+
+        return next_position
+
+    @staticmethod
+    def _validate_node(node):
+        """ Helper function that checks if the node passed is a tree node. Returns the node passed if the validation
+        passes, else raises a TypeError. Time complexity: O(1).
+
+        :param node: node to validate
+        :returns: the node passed if it passes validation
+        :raises TypeError: if the validation fails
+        """
+        if not isinstance(node, Tree._Node):
+            raise TypeError("Not a tree node")
+        return node
+
+    @staticmethod
+    def _invalidate_position(variables):
+        """ Helper function that sets the belongs_to key of a dictionary to None. Used to revoke the ownership of a
+        position by this tree. Time complexity: O(1).
+
+        :returns: the dictionary passed, with the belongs_to key set to None
+        """
+        variables["belongs_to"] = None
+        return variables
+
+    def is_empty(self):
+        """ Returns True if tree is empty, else False. Time complexity: O(1).
+
+        :returns: True if tree is empty, else False
+        """
+        return self._root is None
+
+    def is_root(self, position: _Position):
+        """ Checks if the passed position contains the root node. Time complexity: O(1).
+
+        :returns: True if the passed position holds the root node, else False
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        node = position.manipulate_node(self, "_validate_node")
+
+        return node.parent is None
+
+    def is_leaf(self, position: _Position):
+        """ Checks if the passed position contains a leaf. Time complexity: O(1).
+
+        :returns: True if the passed position holds a leaf node, else False
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        return len(self.get_children(position)) == 0
+
+    def get_root(self):
+        """ Returns the root position. Time complexity: O(1).
+
+        :returns: the root position
+        """
+        if self.is_empty():
+            return None
+        else:
+            return Tree._Position(self, self._root)
+
+    def get_parent(self, position: _Position):
+        """ Returns the parent of the given position. Time complexity: O(1).
+
+        :param position: position containing the node whose parent is being sought
+        :returns: the position of parent of the node contained in the passed position. None if the position passed
+        contains the root node.
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        node = position.manipulate_node(self, "_validate_node")
+
+        if self.is_root(Tree._Position(self, node)):
+            return None
+        else:
+            return Tree._Position(self, node.parent)
+
+    def get_children(self, position: _Position):
+        """ Returns the children of the given position. Time complexity: O(1).
+
+        :param position: position containing the node whose children are being sought
+        :returns: the positions of the children of the node contained in the passed position. None if the position has
+        no children.
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        node = position.manipulate_node(self, "_validate_node")
+        children = node.children
+
+        if children is None:
+            return None
+        else:
+            return [Tree._Position(self, i) for i in children if i is not None]
+
+    def get_siblings(self, position: _Position):
+        """ Returns the siblings of the given position. Time complexity: O(1).
+
+        :param position: position containing the node whose children are being sought
+        :returns: the positions of the siblings of the node contained in the passed position
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        node = position.manipulate_node(self, "_validate_node")
+        parent = node.parent
+
+        if parent is None:
+            return []
+
+        return [Tree._Position(self, i) for i in parent.children if i is not node]
+
+    def get_height_of_node(self, position: _Position):
+        """ Returns the number of edges between a node and the farthest leaf among its descendants. Time complexity:
+        O(n).
+
+        :param position: position containing the node whose height is being sought
+        :returns: the number of edges between a node and the farthest leaf among its descendants
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        if self.is_leaf(position):
+            return 0
+
+        return 1 + max(self.get_height_of_node(p) for p in self.get_children(position))
+
+    def get_height_of_tree(self):
+        """ Returns the number of edges between the root node and the farthest leaf. Time complexity: O(n).
+
+        :returns: the number of edges between the root node and the farthest leaf
+        """
+        if self.is_empty():
+            raise Empty("Tree is empty")
+        return self.get_height_of_node(Tree._Position(self, self._root))
+
+    def get_depth_of_node(self, position: _Position):
+        """ Returns the number of edges between a node and the root. Time complexity: O(n).
+
+        :param position: position containing the node whose depth is being sought
+        :returns: the number of edges between a node and the root
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        if self.is_root(position):
+            return 0
+        return 1 + self.get_depth_of_node(self.get_parent(position))
+
+    def get_depth_of_tree(self):
+        """ Returns the number of edges between the farthest leaf and the root. Time complexity: O(n).
+
+        :returns: the number of edges between the farthest leaf and the root
+        """
+        return self.get_height_of_tree()
+
+    def get_level_of_node(self, position: _Position):
+        """ Returns the number of nodes between a node and the root, inclusive of itself. Time complexity: O(n).
+
+        :param position: position containing the node whose level is being sought
+        :returns: the number of nodes between a node and the root, inclusive of itself
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        return 1 + self.get_depth_of_node(position)
+
+    def traverse_subtree_pre_order(self, position: _Position):
+        """ Pre-order traverse subtree whose root is the passed position and return a generator of the positions it
+        contains. Time complexity: O(1).
+
+        :param position: position containing the node that's the root of the subtree to be traversed
+        :returns: a generator of the positions
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        yield position
+        for i in self.get_children(position):
+            for j in self.traverse_subtree_pre_order(i):
+                yield j
+
+    def traverse_tree_pre_order(self):
+        """ Pre-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+
+        :returns: a generator of the positions
+        """
+        position = self.get_root()
+
+        if position is not None:
+            for i in self.traverse_subtree_pre_order(position):
+                yield i
+
+    def traverse_subtree_post_order(self, position: _Position):
+        """ Post-order traverse subtree whose root is the passed position and return a generator of the positions it
+        contains. Time complexity: O(1).
+
+        :param position: position containing the node that's the root of the subtree to be traversed
+        :returns: a generator of the positions
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        for i in self.get_children(position):
+            for j in self.traverse_subtree_post_order(i):
+                yield j
+        yield position
+
+    def traverse_tree_post_order(self):
+        """ Post-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+
+        :returns: a generator of the positions
+        """
+        position = self.get_root()
+
+        if position is not None:
+            for i in self.traverse_subtree_post_order(position):
+                yield i
+
+    def traverse_subtree_level_order(self, position: _Position):
+        """ Level-by-level traverse subtree whose root is the passed position and return a generator of the positions it
+        contains. Time complexity: O(1).
+
+        :param position: position containing the node that's the root of the subtree to be traversed
+        :returns: a generator of the positions
+        """
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        def helper(root_node, level):
+            if root_node is not None:
+                if level == 1:
+                    yield Tree._Position(self, root_node)
+                elif level > 1:
+                    for child in root_node.children:
+                        for k in helper(child, level - 1):
+                            yield k
+
+        node = position.manipulate_node(self, "_validate_node")
+        number_of_levels = self.get_height_of_node(position) + 1
+
+        for i in range(1, number_of_levels + 1):
+            for j in helper(node, i):
+                yield j
+
+    def traverse_tree_level_order(self):
+        """ Level-by-level traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+
+        :returns: a generator of the positions
+        """
+        position = self.get_root()
+
+        if position is not None:
+            for i in self.traverse_subtree_level_order(position):
+                yield i
+
+    @abstractmethod
+    def insert(self, data):
+        """ Inserts a value into the tree
+
+        :param data: item to be added to the tree
+        """
+        self.__length += 1
+
+    @abstractmethod
+    def delete(self, position: _Position):
+        """ Deletes a value from the tree
+
+        :param position: position containing the node to be removed from the tree
+        """
+        self.__length -= 1

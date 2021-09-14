@@ -6,7 +6,7 @@ class DoublyLinkedList(LinkedList):
     """ A doubly linked list is a linear collection of nodes whose head and tail nodes are unconnected. Each node
     contains a reference to the node preceding it, and a reference to the node succeeding it.
 
-    Instantiating a singly linked list
+    Instantiating a doubly linked list
         >>> a_list = DoublyLinkedList()
 
     Appending an item to the list

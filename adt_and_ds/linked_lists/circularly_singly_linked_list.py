@@ -5,7 +5,7 @@ class CircularlySinglyLinkedList(SinglyLinkedList):
     """ A circularly singly linked list is a cyclic collection of nodes whose head and tail nodes are connected. Each
     node contains a reference to the node succeeding it.
 
-    Instantiating a singly linked list
+    Instantiating a circularly singly linked list
         >>> a_list = CircularlySinglyLinkedList()
 
     Appending an item to the list

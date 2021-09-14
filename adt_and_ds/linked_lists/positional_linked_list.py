@@ -7,12 +7,13 @@ class PositionalLinkedList(ABC):
     neighbouring nodes without the need to traverse the list from its head or tail to that specific position.
 
     A positional linked list can be implemented based on any linked list data structure, such as singly linked list,
-    doubly linked list, etc. The operations that can be performed on the neighbouring nodes of a certain position are
-    limited to the directions of traversal offered by the data structure used to implement the positional linked list.
-    When using a linked list data structure where each node has a reference to the node succeeding it but not the one
-    preceding it, only operations referencing the next neighbours of a specific position are achievable. If the linked
-    data structure contains nodes where each node contains references to both its previous and next nodes, operations
-    referencing both the previous and next neighbours of a specific position are achievable.
+    doubly linked list, etc. The operations that can be performed on the neighbouring nodes of a certain position, for
+    a running time of O(1), are limited to the directions of traversal offered by the data structure used to implement
+    the positional linked list. When using a linked list data structure where each node has a reference to the node
+    succeeding it but not the one preceding it, only operations referencing the next neighbours of a specific position
+    are achievable at constant running time. If the linked data structure contains nodes where each node contains
+    references to both its previous and next nodes, operations referencing both the previous and next neighbours of a
+    specific position are achievable at constant running time.
     """
 
     class _Position:

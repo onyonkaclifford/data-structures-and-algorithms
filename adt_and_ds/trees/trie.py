@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import Callable, List, Union
 
 
 class Trie:
@@ -126,6 +126,28 @@ class Trie:
         """
         self.delete(key)
 
+    def __get_node_for_key(self, key: str, not_found_callback: Callable, create_node=False):
+        current_node = self.__root
+        path = [current_node]
+
+        for k in key:
+            to_break = False
+            for node in current_node.children:
+                if node.key == k:
+                    current_node = node
+                    path.append(node)
+                    to_break = True
+                    break
+            if not to_break:
+                not_found_callback()
+                if create_node:
+                    new_node = Trie._Node(k)
+                    current_node.children.append(new_node)
+                    current_node = new_node
+                    self.__length += 1
+
+        return current_node, path
+
     def is_empty(self):
         """ Returns True if trie is empty, else False. Time complexity: O(1).
 
@@ -139,21 +161,10 @@ class Trie:
         :param key: key to insert
         :param value: value corresponding to the key
         """
-        current_node = self.__root
+        def not_found_callable():
+            pass
 
-        for k in key:
-            to_break = False
-            for node in current_node.children:
-                if node.key == k:
-                    current_node = node
-                    to_break = True
-                    break
-            if not to_break:
-                new_node = Trie._Node(k)
-                current_node.children.append(new_node)
-                current_node = new_node
-                self.__length += 1
-
+        current_node, _ = self.__get_node_for_key(key, not_found_callable, create_node=True)
         current_node.value = value
         current_node.end_of_string = True
 
@@ -162,33 +173,29 @@ class Trie:
 
         :param key: key to delete
         """
-        current_node = self.__root
-        path = [current_node]
+        def not_found_callable():
+            raise KeyError("key not present in trie")
 
-        for k in key:
-            to_break = False
-            for node in current_node.children:
-                if node.key == k:
-                    current_node = node
-                    path.append(node)
-                    to_break = True
+        current_node, path = self.__get_node_for_key(key, not_found_callable)
+        end_of_string_occurrences = 0
+
+        while len(path) > 1:
+            node = path.pop()
+            previous_node = path[-1]
+
+            if node.end_of_string:
+                if end_of_string_occurrences > 0:
                     break
-            if not to_break:
-                raise KeyError("key not present in trie")
 
-        if len(current_node.children) > 0:
-            current_node.value = None
-            current_node.end_of_string = False
-        else:
-            while len(path) > 1:
-                node = path.pop()
-                previous_node = path[-1]
+                end_of_string_occurrences += 1
+                node.value = None
+                node.end_of_string = False
 
-                if len(node.children) > 0:
-                    break
-                else:
-                    previous_node.children.remove(node)
-                    self.__length -= 1
+            if len(node.children) > 0:
+                break
+            else:
+                previous_node.children.remove(node)
+                self.__length -= 1
 
     def get_value(self, key: str):
         """ Returns the value associated with a certain key
@@ -196,17 +203,10 @@ class Trie:
         :param key: key whose value is being sought
         :returns: value corresponding to the passed key
         """
-        current_node = self.__root
+        def not_found_callable():
+            raise KeyError("key not present in trie")
 
-        for k in key:
-            to_break = False
-            for node in current_node.children:
-                if node.key == k:
-                    current_node = node
-                    to_break = True
-                    break
-            if not to_break:
-                raise KeyError("key not present in trie")
+        current_node, _ = self.__get_node_for_key(key, not_found_callable)
 
         return current_node.value
 
@@ -216,18 +216,10 @@ class Trie:
         :param key: key whose value is being replaced
         :param value: new value that's to replace current value of the passed key
         """
-        current_node = self.__root
+        def not_found_callable():
+            raise KeyError("key not present in trie")
 
-        for k in key:
-            to_break = False
-            for node in current_node.children:
-                if node.key == k:
-                    current_node = node
-                    to_break = True
-                    break
-            if not to_break:
-                raise KeyError("key not present in trie")
-
+        current_node, _ = self.__get_node_for_key(key, not_found_callable)
         current_node.value = value
 
     def prefix_search(self, prefix: str):
@@ -236,6 +228,9 @@ class Trie:
         :param prefix: first part of the words being sought
         :returns: all the combinations of words that can be formed from the passed prefix
         """
+        def not_found_callable():
+            raise KeyError("key not present in trie")
+
         def get_strings_helper(root_node: Trie._Node, starting_with: str):
             children = root_node.children
 
@@ -246,16 +241,9 @@ class Trie:
                 for string_data in get_strings_helper(child, starting_with + child.key):
                     yield string_data
 
-        current_node = self.__root
-
-        for k in prefix:
-            to_break = False
-            for node in current_node.children:
-                if node.key == k:
-                    current_node = node
-                    to_break = True
-                    break
-            if not to_break:
-                return []
+        try:
+            current_node, _ = self.__get_node_for_key(prefix, not_found_callable)
+        except KeyError:
+            return []
 
         return [i for i in get_strings_helper(current_node, prefix)]

@@ -155,55 +155,6 @@ class BinarySearchTree(BinaryTree):
             else:
                 previous_node.children[0] = node
 
-    def delete(self, position: Tree._Position):
-        if not position.is_owned_by(self):
-            raise ValueError("Position doesn't belong to this tree")
-
-        super().delete(position)
-
-        def insert_node(node_to_insert, is_node_left_child, parent_node):
-            if node_to_insert is not None:
-                node_to_insert.parent = parent_node
-            if is_node_left_child is not None:
-                if is_node_left_child:
-                    parent_node.children[0] = node_to_insert
-                else:
-                    parent_node.children[1] = node_to_insert
-
-        def delete_node(node_to_delete, is_root):
-            parent = node_to_delete.parent
-            left = node_to_delete.children[0]
-            right = node_to_delete.children[1]
-            is_left_child = None if parent is None else node_to_delete.data < parent.data
-
-            if left is None:
-                insert_node(right, is_left_child, parent)
-                if is_root:
-                    self._root = right
-            else:
-                current_node = left
-                right_child = current_node.children[1]
-
-                if right_child is None:
-                    current_node.children[1] = right
-                    insert_node(current_node, is_left_child, parent)
-                    if is_root:
-                        self._root = current_node
-                else:
-                    new_node = Tree._Node(right_child.data, children=[current_node, right])
-
-                    insert_node(new_node, is_left_child, parent)
-                    if is_root:
-                        self._root = new_node
-
-                    delete_node(right_child, False)
-
-        node = position.manipulate_node(self, "_validate_node")
-        is_root_node = self.is_root(position)
-        _ = position.manipulate_variables(self, "_invalidate_position")
-
-        delete_node(node, is_root_node)
-
     def search(self, data):
         """ Returns the position of a value within the tree, or None if the value doesn't exist in the tree. Time
         complexity: O(n).

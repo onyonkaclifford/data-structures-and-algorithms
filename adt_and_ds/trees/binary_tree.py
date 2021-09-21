@@ -94,7 +94,3 @@ class BinaryTree(Tree):
     @abstractmethod
     def insert(self, data):
         super().insert(data)
-
-    @abstractmethod
-    def delete(self, position: Tree._Position):
-        super().delete(position)

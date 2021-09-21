@@ -396,6 +396,59 @@ class Tree(ABC):
             for i in self.traverse_subtree_level_order(position):
                 yield i
 
+    def delete(self, position: _Position):
+        """ Deletes a value from the tree
+
+        :param position: position containing the node to be removed from the tree
+        """
+        self.__length -= 1
+
+        if not position.is_owned_by(self):
+            raise ValueError("Position doesn't belong to this tree")
+
+        def insert_node(node_to_insert, is_node_left_child, parent_node):
+            if node_to_insert is not None:
+                node_to_insert.parent = parent_node
+            if is_node_left_child is not None:
+                if is_node_left_child:
+                    parent_node.children[0] = node_to_insert
+                else:
+                    parent_node.children[1] = node_to_insert
+
+        def delete_node(node_to_delete, is_root):
+            parent = node_to_delete.parent
+            left = node_to_delete.children[0]
+            right = node_to_delete.children[1]
+            is_left_child = None if parent is None else node_to_delete.data < parent.data
+
+            if left is None:
+                insert_node(right, is_left_child, parent)
+                if is_root:
+                    self._root = right
+            else:
+                current_node = left
+                right_child = current_node.children[1]
+
+                if right_child is None:
+                    current_node.children[1] = right
+                    insert_node(current_node, is_left_child, parent)
+                    if is_root:
+                        self._root = current_node
+                else:
+                    new_node = Tree._Node(right_child.data, children=[current_node, right])
+
+                    insert_node(new_node, is_left_child, parent)
+                    if is_root:
+                        self._root = new_node
+
+                    delete_node(right_child, False)
+
+        node = position.manipulate_node(self, "_validate_node")
+        is_root_node = self.is_root(position)
+        _ = position.manipulate_variables(self, "_invalidate_position")
+
+        delete_node(node, is_root_node)
+
     @abstractmethod
     def insert(self, data):
         """ Inserts a value into the tree
@@ -403,11 +456,3 @@ class Tree(ABC):
         :param data: item to be added to the tree
         """
         self.__length += 1
-
-    @abstractmethod
-    def delete(self, position: _Position):
-        """ Deletes a value from the tree
-
-        :param position: position containing the node to be removed from the tree
-        """
-        self.__length -= 1

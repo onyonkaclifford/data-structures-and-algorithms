@@ -194,10 +194,10 @@ class AVLTree(BinarySearchTree):
 
         self.__root = balance_tree(self._root)
 
-    def insert(self, data):
-        super().insert(data)
-        self.__balance_tree()
-
     def delete(self, position: Tree._Position):
         super().delete(position)
+        self.__balance_tree()
+
+    def insert(self, data):
+        super().insert(data)
         self.__balance_tree()

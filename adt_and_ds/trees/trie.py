@@ -1,7 +1,8 @@
 from typing import Callable, List, Union
+from tree import Tree
 
 
-class Trie:
+class Trie(Tree):
     """ A trie is a search tree whose nodes each contain a single string character, and have zero or many children. When
     traversed depth-first, if a complete word is formed, the node at which the path terminates at may be mapped to a
     value. The root node is unique from the rest of the nodes, in that it doesn't carry any key, or may carry a special
@@ -68,48 +69,19 @@ class Trie:
 
     """
 
-    class _Node:
-        def __init__(self, key=None, value=None, children: Union[List, None] = None, end_of_string=False):
-            self.key = key
+    class _Node(Tree._Node):
+        def __init__(self, data=None, value=None, parent=None, children: Union[List, None] = None, end_of_string=False):
+            super().__init__(data, parent, children if children is not None else [])
             self.value = value
-            self.children = children if children is not None else []
             self.end_of_string = end_of_string
 
     def __init__(self):
-        self.__root = Trie._Node()
-        self.__length = 0
-
-    def __len__(self):
-        """ Returns total number of nodes in trie. Time complexity: O(1).
-
-        :return: total number of nodes in trie
-        """
-        return self.__length
+        super().__init__()
+        self._root = Trie._Node()
 
     def __repr__(self):
-        """ Returns a string representation of the trie. Time complexity: O(n).
-
-        :return: the string representation of the trie
-        """
-        def helper(current_node: Trie._Node):
-            children = current_node.children
-            num_of_children = len(children)
-            last_child_idx = num_of_children - 1
-
-            if current_node.key is not None:
-                data_dict["string_data"] += f"{current_node.key}"
-
-            for i, j in enumerate(children):
-                data_dict["string_data"] += "(" if i == 0 else ", "
-                helper(j)
-                data_dict["string_data"] += ")" if i == last_child_idx else ""
-
-        if self.is_empty():
-            return ""
-
-        data_dict = {"string_data": ""}
-        helper(self.__root)
-        return data_dict["string_data"]
+        representation = super().__repr__()
+        return representation[4:]  # Strip None (from root that holds no data) from the string
 
     def __getitem__(self, key: str):
         """ Alias of get_value
@@ -127,13 +99,13 @@ class Trie:
         self.delete(key)
 
     def __get_node_for_key(self, key: str, not_found_callback: Callable, create_node=False):
-        current_node = self.__root
+        current_node = self._root
         path = [current_node]
 
         for k in key:
             to_break = False
             for node in current_node.children:
-                if node.key == k:
+                if node.data == k:
                     current_node = node
                     path.append(node)
                     to_break = True
@@ -141,10 +113,10 @@ class Trie:
             if not to_break:
                 not_found_callback()
                 if create_node:
-                    new_node = Trie._Node(k)
+                    new_node = Trie._Node(k, parent=current_node)
                     current_node.children.append(new_node)
                     current_node = new_node
-                    self.__length += 1
+                    self._length += 1
 
         return current_node, path
 
@@ -153,7 +125,7 @@ class Trie:
 
         :returns: True if trie is empty, else False
         """
-        return self.__length == 0
+        return self._length == 0
 
     def insert(self, key: str, value=None):
         """ Inserts a key and its corresponding value into the trie
@@ -176,7 +148,7 @@ class Trie:
         def not_found_callable():
             raise KeyError("key not present in trie")
 
-        current_node, path = self.__get_node_for_key(key, not_found_callable)
+        _, path = self.__get_node_for_key(key, not_found_callable)
         end_of_string_occurrences = 0
 
         while len(path) > 1:
@@ -195,7 +167,7 @@ class Trie:
                 break
             else:
                 previous_node.children.remove(node)
-                self.__length -= 1
+                self._length -= 1
 
     def get_value(self, key: str):
         """ Returns the value associated with a certain key
@@ -238,7 +210,7 @@ class Trie:
                 yield starting_with
 
             for child in children:
-                for string_data in get_strings_helper(child, starting_with + child.key):
+                for string_data in get_strings_helper(child, starting_with + child.data):
                     yield string_data
 
         try:

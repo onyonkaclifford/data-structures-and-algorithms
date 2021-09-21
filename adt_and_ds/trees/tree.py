@@ -79,7 +79,7 @@ class Tree(ABC):
 
     def __init__(self):
         self._root: Union[Tree._Node, None] = None
-        self.__length = 0
+        self._length = 0
         self.__generator: Union[Generator, None] = None
 
     def __len__(self):
@@ -87,7 +87,7 @@ class Tree(ABC):
 
         :return: total number of items in tree
         """
-        return self.__length
+        return self._length
 
     def __repr__(self):
         """ Returns a string representation of the tree. Time complexity: O(n).
@@ -401,7 +401,7 @@ class Tree(ABC):
 
         :param position: position containing the node to be removed from the tree
         """
-        self.__length -= 1
+        self._length -= 1
 
         if not position.is_owned_by(self):
             raise ValueError("Position doesn't belong to this tree")
@@ -455,4 +455,4 @@ class Tree(ABC):
 
         :param data: item to be added to the tree
         """
-        self.__length += 1
+        self._length += 1

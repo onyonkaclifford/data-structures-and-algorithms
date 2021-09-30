@@ -1,4 +1,4 @@
-name: Sorting algorithms tests
+name: Tests
 
 on: [push]
 
@@ -16,4 +16,4 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Run tests
         run: |
-          python3 -m doctest -v sorting_algorithms/*.py
+          python3 -m doctest -v */*.py

@@ -1,8 +1,8 @@
-from stack import Stack, Empty
+from stack import Empty, Stack
 
 
 class PythonListStack(Stack):
-    """ A stack implemented using the python list data structure.
+    """A stack implemented using the python list data structure.
 
     Instantiate a stack object
         >>> a_stack = PythonListStack()
@@ -30,6 +30,7 @@ class PythonListStack(Stack):
         >>> a_stack.pop()
         1
     """
+
     def __init__(self):
         self.__data_store = []
 

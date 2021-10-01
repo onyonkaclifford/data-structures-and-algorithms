@@ -1,9 +1,10 @@
 from typing import Callable, List, Union
+
 from tree import Tree
 
 
 class Trie(Tree):
-    """ A trie is a search tree whose nodes each contain a single string character, and have zero or many children. When
+    """A trie is a search tree whose nodes each contain a single string character, and have zero or many children. When
     traversed depth-first, if a complete word is formed, the node at which the path terminates at may be mapped to a
     value. The root node is unique from the rest of the nodes, in that it doesn't carry any key, or may carry a special
     key such as an empty string. Tries may be used to predict auto-complete text, where given a certain prefix, all
@@ -70,7 +71,14 @@ class Trie(Tree):
     """
 
     class _Node(Tree._Node):
-        def __init__(self, data=None, value=None, parent=None, children: Union[List, None] = None, end_of_string=False):
+        def __init__(
+            self,
+            data=None,
+            value=None,
+            parent=None,
+            children: Union[List, None] = None,
+            end_of_string=False,
+        ):
             super().__init__(data, parent, children if children is not None else [])
             self.value = value
             self.end_of_string = end_of_string
@@ -81,24 +89,25 @@ class Trie(Tree):
 
     def __repr__(self):
         representation = super().__repr__()
-        return representation[4:]  # Strip None (from root that holds no data) from the string
+        return representation[
+            4:
+        ]  # Strip None (from root that holds no data) from the string
 
     def __getitem__(self, key: str):
-        """ Alias of get_value
-        """
+        """Alias of get_value"""
         return self.get_value(key)
 
     def __setitem__(self, key: str, value):
-        """ Alias of replace
-        """
+        """Alias of replace"""
         self.replace(key, value)
 
     def __delitem__(self, key: str):
-        """ Alias of delete
-        """
+        """Alias of delete"""
         self.delete(key)
 
-    def __get_node_for_key(self, key: str, not_found_callback: Callable, create_node=False):
+    def __get_node_for_key(
+        self, key: str, not_found_callback: Callable, create_node=False
+    ):
         current_node = self._root
         path = [current_node]
 
@@ -121,30 +130,34 @@ class Trie(Tree):
         return current_node, path
 
     def is_empty(self):
-        """ Returns True if trie is empty, else False. Time complexity: O(1).
+        """Returns True if trie is empty, else False. Time complexity: O(1).
 
         :returns: True if trie is empty, else False
         """
         return self._length == 0
 
     def insert(self, key: str, value=None):
-        """ Inserts a key and its corresponding value into the trie
+        """Inserts a key and its corresponding value into the trie
 
         :param key: key to insert
         :param value: value corresponding to the key
         """
+
         def not_found_callable():
             pass
 
-        current_node, _ = self.__get_node_for_key(key, not_found_callable, create_node=True)
+        current_node, _ = self.__get_node_for_key(
+            key, not_found_callable, create_node=True
+        )
         current_node.value = value
         current_node.end_of_string = True
 
     def delete(self, key: str):
-        """ Deletes a key and its corresponding value from the trie
+        """Deletes a key and its corresponding value from the trie
 
         :param key: key to delete
         """
+
         def not_found_callable():
             raise KeyError("key not present in trie")
 
@@ -170,11 +183,12 @@ class Trie(Tree):
                 self._length -= 1
 
     def get_value(self, key: str):
-        """ Returns the value associated with a certain key
+        """Returns the value associated with a certain key
 
         :param key: key whose value is being sought
         :returns: value corresponding to the passed key
         """
+
         def not_found_callable():
             raise KeyError("key not present in trie")
 
@@ -183,11 +197,12 @@ class Trie(Tree):
         return current_node.value
 
     def replace(self, key: str, value):
-        """ Replaces the value of a key with the new passed value
+        """Replaces the value of a key with the new passed value
 
         :param key: key whose value is being replaced
         :param value: new value that's to replace current value of the passed key
         """
+
         def not_found_callable():
             raise KeyError("key not present in trie")
 
@@ -195,11 +210,12 @@ class Trie(Tree):
         current_node.value = value
 
     def prefix_search(self, prefix: str):
-        """ Returns all the combinations of words that can be formed from the passed prefix, as per to the trie
+        """Returns all the combinations of words that can be formed from the passed prefix, as per to the trie
 
         :param prefix: first part of the words being sought
         :returns: all the combinations of words that can be formed from the passed prefix
         """
+
         def not_found_callable():
             raise KeyError("key not present in trie")
 
@@ -210,7 +226,9 @@ class Trie(Tree):
                 yield starting_with
 
             for child in children:
-                for string_data in get_strings_helper(child, starting_with + child.data):
+                for string_data in get_strings_helper(
+                    child, starting_with + child.data
+                ):
                     yield string_data
 
         try:

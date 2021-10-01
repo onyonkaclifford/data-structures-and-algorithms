@@ -1,9 +1,10 @@
 from abc import abstractmethod
+
 from tree import Tree
 
 
 class BinaryTree(Tree):
-    """ A binary tree is a tree whose nodes contain a maximum of two children, the left child and the right child. The
+    """A binary tree is a tree whose nodes contain a maximum of two children, the left child and the right child. The
     order of the children of any node is such that the left child has precedence over the right child. Binary tree
     vocabularies include, but are not limited to:
 
@@ -20,7 +21,7 @@ class BinaryTree(Tree):
         super().__init__()
 
     def get_left_child(self, position: Tree._Position):
-        """ Returns the left child of the given position. Time complexity: O(1).
+        """Returns the left child of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose left child is being sought
         :returns: the position of the left child of the node contained in the passed position. None if the position has
@@ -39,7 +40,7 @@ class BinaryTree(Tree):
             return Tree._Position(self, left_child) if left_child is not None else None
 
     def get_right_child(self, position: Tree._Position):
-        """ Returns the right child of the given position. Time complexity: O(1).
+        """Returns the right child of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose right child is being sought
         :returns: the position of the right child of the node contained in the passed position. None if the position has
@@ -55,10 +56,12 @@ class BinaryTree(Tree):
             return None
         else:
             right_child = children[1]
-            return Tree._Position(self, right_child) if right_child is not None else None
+            return (
+                Tree._Position(self, right_child) if right_child is not None else None
+            )
 
     def traverse_subtree_in_order(self, position: Tree._Position):
-        """ In-order traverse subtree whose root is the passed position and return a generator of the positions it
+        """In-order traverse subtree whose root is the passed position and return a generator of the positions it
         contains. Time complexity: O(1).
 
         :param position: position containing the node that's the root of the subtree to be traversed
@@ -81,7 +84,7 @@ class BinaryTree(Tree):
                 yield i
 
     def traverse_tree_in_order(self):
-        """ In-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+        """In-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
 
         :returns: a generator of the positions
         """

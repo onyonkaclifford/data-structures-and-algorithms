@@ -2,7 +2,7 @@ from singly_linked_list import SinglyLinkedList
 
 
 class CircularlySinglyLinkedList(SinglyLinkedList):
-    """ A circularly singly linked list is a cyclic collection of nodes whose head and tail nodes are connected. Each
+    """A circularly singly linked list is a cyclic collection of nodes whose head and tail nodes are connected. Each
     node contains a reference to the node succeeding it.
 
     Instantiating a circularly singly linked list

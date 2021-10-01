@@ -1,10 +1,11 @@
 from enum import Enum
 from typing import List
+
 from binary_tree import BinaryTree
 
 
 class BinaryExpressionTree(BinaryTree):
-    """ A binary expression tree is a binary tree used to parse mathematical expressions. Operators are contained
+    """A binary expression tree is a binary tree used to parse mathematical expressions. Operators are contained
     within the internal nodes of the tree, whereas the operands occupy the leaves. By using such a parse tree, complex
     mathematical expressions with numerous operators and operands can be easily evaluated, as the expression is divided
     into smaller parts made up of only two operands and a single operator.
@@ -30,6 +31,7 @@ class BinaryExpressionTree(BinaryTree):
         >>> tree.evaluate("((434+42-2)*(43+4-2))", BinaryExpressionTree.Notation.Postfix)
         21330.0
     """
+
     Notation = Enum("Notation", "Infix Prefix Postfix")
 
     def __init__(self):
@@ -61,7 +63,9 @@ class BinaryExpressionTree(BinaryTree):
                         token = token[:-1]
                         break
                     else:
-                        raise ValueError(f"'{token[-1]}' is not a valid operator or operand")
+                        raise ValueError(
+                            f"'{token[-1]}' is not a valid operator or operand"
+                        )
 
             if len(token) > 0:
                 tokens.append(token)
@@ -132,7 +136,9 @@ class BinaryExpressionTree(BinaryTree):
 
         else:
             if data == "(":
-                node = BinaryTree._Node(None, parent=self.__current_node, children=[None, None])
+                node = BinaryTree._Node(
+                    None, parent=self.__current_node, children=[None, None]
+                )
                 self.__current_node.children[0] = node
 
                 self.__current_node = node
@@ -142,8 +148,12 @@ class BinaryExpressionTree(BinaryTree):
 
             elif data in "+-*/":
                 if self.__current_node is None:
-                    node = BinaryTree._Node(None, parent=self.__current_node, children=[self._root, None])
-                    new_right_node = BinaryTree._Node(None, parent=node, children=[None, None])
+                    node = BinaryTree._Node(
+                        None, parent=self.__current_node, children=[self._root, None]
+                    )
+                    new_right_node = BinaryTree._Node(
+                        None, parent=node, children=[None, None]
+                    )
 
                     node.children[1] = new_right_node
                     self._root.parent = node
@@ -153,7 +163,9 @@ class BinaryExpressionTree(BinaryTree):
                     self.__current_node = new_right_node
 
                 elif self.__current_node.data is None:
-                    node = BinaryTree._Node(None, parent=self.__current_node, children=[None, None])
+                    node = BinaryTree._Node(
+                        None, parent=self.__current_node, children=[None, None]
+                    )
                     self.__current_node.children[1] = node
 
                     self.__current_node.data = data
@@ -163,8 +175,12 @@ class BinaryExpressionTree(BinaryTree):
                     parent = self.__current_node.parent
 
                     if parent is None or parent.data is not None:
-                        node = BinaryTree._Node(None, parent=parent, children=[self.__current_node, None])
-                        new_right_node = BinaryTree._Node(None, parent=node, children=[None, None])
+                        node = BinaryTree._Node(
+                            None, parent=parent, children=[self.__current_node, None]
+                        )
+                        new_right_node = BinaryTree._Node(
+                            None, parent=node, children=[None, None]
+                        )
 
                         self.__current_node.parent = node
                         node.children[1] = new_right_node
@@ -182,7 +198,9 @@ class BinaryExpressionTree(BinaryTree):
                         self.__current_node = new_right_node
 
                     else:
-                        node = BinaryTree._Node(None, parent=parent, children=[None, None])
+                        node = BinaryTree._Node(
+                            None, parent=parent, children=[None, None]
+                        )
                         parent.children[1] = node
 
                         parent.data = data
@@ -207,19 +225,25 @@ class BinaryExpressionTree(BinaryTree):
 
         else:
             if self.__current_node.children[0] is None:
-                node = BinaryTree._Node(data, parent=self.__current_node, children=[None, None])
+                node = BinaryTree._Node(
+                    data, parent=self.__current_node, children=[None, None]
+                )
                 self.__current_node.children[0] = node
                 if data in "+-*/":
                     self.__current_node = node
             elif self.__current_node.children[1] is None:
-                node = BinaryTree._Node(data, parent=self.__current_node, children=[None, None])
+                node = BinaryTree._Node(
+                    data, parent=self.__current_node, children=[None, None]
+                )
                 self.__current_node.children[1] = node
                 if data in "+-*/":
                     self.__current_node = node
             else:
                 while self.__current_node.children[1] is not None:
                     self.__current_node = self.__current_node.parent
-                node = BinaryTree._Node(data, parent=self.__current_node, children=[None, None])
+                node = BinaryTree._Node(
+                    data, parent=self.__current_node, children=[None, None]
+                )
                 self.__current_node.children[1] = node
                 if data in "+-*/":
                     self.__current_node = node
@@ -268,7 +292,7 @@ class BinaryExpressionTree(BinaryTree):
         self.__init__()
 
     def insert(self, data):
-        """ Inserts a value into the tree. Operators and operands inserted need to follow the infix notation when using
+        """Inserts a value into the tree. Operators and operands inserted need to follow the infix notation when using
         this method.
 
         :param data: item to be added to the tree
@@ -276,12 +300,13 @@ class BinaryExpressionTree(BinaryTree):
         self.__insert_infix(data)
 
     def evaluate(self, expression: str, notation: Notation = Notation.Infix):
-        """ Returns the solution to a mathematical expression
+        """Returns the solution to a mathematical expression
 
         :param expression: the expression to be solved
         :param notation: the notation to use when building the parse tree
         :returns: the solution to the passed expression
         """
+
         def evaluate_helper(node: BinaryTree._Node):
             try:
                 if node.children == [None, None]:

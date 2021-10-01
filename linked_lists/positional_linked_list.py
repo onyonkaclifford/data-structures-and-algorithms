@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class PositionalLinkedList(ABC):
-    """ A positional linked list is a linked list whose nodes are identifiable by their position within the list. Using
+    """A positional linked list is a linked list whose nodes are identifiable by their position within the list. Using
     the position of a node, operations such as insertion, retrieval, and deletion of elements can be performed on
     neighbouring nodes without the need to traverse the list from its head or tail to that specific position.
 
@@ -17,14 +17,14 @@ class PositionalLinkedList(ABC):
     """
 
     class _Position:
-        """ A representation of the position of a node within a positional linked list """
+        """A representation of the position of a node within a positional linked list"""
 
         def __init__(self, belongs_to, node):
             self.__variables = {"belongs_to": belongs_to}
             self.__node = node
 
         def is_owned_by(self, owner):
-            """ Check whether position belongs to the list, owner. Time complexity: O(1).
+            """Check whether position belongs to the list, owner. Time complexity: O(1).
 
             :param owner: object to check whether it's the owner of this position
             :returns: True of the position is owned by the object passed, else False
@@ -32,7 +32,7 @@ class PositionalLinkedList(ABC):
             return owner is self.__variables["belongs_to"]
 
         def manipulate_variables(self, owner, method: str, *params):
-            """ Manipulate member variables of this position. Methods of the owner list are the only ones that can call
+            """Manipulate member variables of this position. Methods of the owner list are the only ones that can call
             this method. Time complexity: O(1).
 
             :param owner: list object that owns this position
@@ -45,7 +45,7 @@ class PositionalLinkedList(ABC):
             return getattr(owner, method)(self.__variables, *params)
 
         def manipulate_node(self, owner, method: str, *params):
-            """ Manipulate the node held by this position. Methods of the owner list are the only ones that can call this
+            """Manipulate the node held by this position. Methods of the owner list are the only ones that can call this
             method. Time complexity: O(1).
 
             :param owner: list object that owns this position
@@ -58,7 +58,7 @@ class PositionalLinkedList(ABC):
             return getattr(owner, method)(self.__node, *params)
 
         def get_data(self):
-            """ Returns the data stored by the node held by this position. Time complexity: O(1).
+            """Returns the data stored by the node held by this position. Time complexity: O(1).
 
             :returns: data stored in node contained in this position
             """
@@ -66,7 +66,7 @@ class PositionalLinkedList(ABC):
 
     @staticmethod
     def _invalidate_position(variables):
-        """ Helper function that sets the belongs_to key of a dictionary to None. Time complexity: O(1).
+        """Helper function that sets the belongs_to key of a dictionary to None. Time complexity: O(1).
 
         :returns: the passed dictionary with belongs_to set to None
         """
@@ -76,7 +76,7 @@ class PositionalLinkedList(ABC):
     @staticmethod
     @abstractmethod
     def _validate_node(node):
-        """ Helper function that checks if a node is a sentinel. Returns None if the node is a sentinel, otherwise
+        """Helper function that checks if a node is a sentinel. Returns None if the node is a sentinel, otherwise
         returns the node itself. Time complexity: O(1).
 
         :param node: node to validate
@@ -86,7 +86,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def is_empty(self):
-        """ Returns True if list is empty, else False
+        """Returns True if list is empty, else False
 
         :return: True if list is empty, else False
         """
@@ -94,7 +94,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def insert_before(self, position: _Position, data):
-        """ Add item before the defined position within the list
+        """Add item before the defined position within the list
 
         :param position: reference position
         :param data: item to insert
@@ -105,7 +105,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def insert_after(self, position: _Position, data):
-        """ Add item after the defined position within the list
+        """Add item after the defined position within the list
 
         :param position: reference position
         :param data: item to insert
@@ -116,7 +116,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def get_before(self, position: _Position):
-        """ Returns the position just before the passed position
+        """Returns the position just before the passed position
 
         :param position: reference position
         :returns: the position just before the passed position
@@ -126,7 +126,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def get_after(self, position: _Position):
-        """ Returns the position just after the passed position
+        """Returns the position just after the passed position
 
         :param position: reference position
         :returns: the position just after the passed position
@@ -136,7 +136,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def remove_before(self, position: _Position):
-        """ Deletes item just before the passed position
+        """Deletes item just before the passed position
 
         :param position: reference position
         :returns: the deleted item
@@ -146,7 +146,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def remove_after(self, position: _Position):
-        """ Deletes item just after the passed position
+        """Deletes item just after the passed position
 
         :param position: reference position
         :returns: the deleted item
@@ -156,7 +156,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def remove(self, position: _Position):
-        """ Deletes item at a specific position
+        """Deletes item at a specific position
 
         :param position: position containing item to be deleted
         :returns: the deleted item
@@ -166,7 +166,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def insert_first(self, data):
-        """ Add item at the head of the list
+        """Add item at the head of the list
 
         :param data: item to insert
         :returns: the position of the added item
@@ -175,7 +175,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def insert_last(self, data):
-        """ Add item at the tail of the list
+        """Add item at the tail of the list
 
         :param data: item to insert
         :returns: the position of the added item
@@ -183,7 +183,7 @@ class PositionalLinkedList(ABC):
         raise NotImplementedError
 
     def append(self, data):
-        """ Alias of insert_last
+        """Alias of insert_last
 
         :param data: item to insert
         """
@@ -191,7 +191,7 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def get_first(self):
-        """ Returns the position of the item at the head of the list
+        """Returns the position of the item at the head of the list
 
         :returns: the position of the item at the head of the list
         """
@@ -199,14 +199,14 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def get_last(self):
-        """ Returns the position of the item at the tail of the list
+        """Returns the position of the item at the tail of the list
 
         :returns: the position of the item at the tail of the list
         """
         raise NotImplementedError
 
     def remove_first(self):
-        """ Delete item at the head of the list
+        """Delete item at the head of the list
 
         :returns: the deleted item
         """
@@ -214,14 +214,14 @@ class PositionalLinkedList(ABC):
 
     @abstractmethod
     def remove_last(self):
-        """ Delete item at the tail of the list
+        """Delete item at the tail of the list
 
         :returns: the deleted item
         """
         raise NotImplementedError
 
     def replace(self, position: _Position, data):
-        """ Replaces item at a specific position. Time complexity: O(1).
+        """Replaces item at a specific position. Time complexity: O(1).
 
         :param position: reference position
         :param data: item to replace the existing item at the reference position

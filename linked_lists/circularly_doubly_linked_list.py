@@ -2,7 +2,7 @@ from doubly_linked_list import DoublyLinkedList
 
 
 class CircularlyDoublyLinkedList(DoublyLinkedList):
-    """ A circularly doubly linked list is a cyclic collection of nodes whose head and tail nodes are connected. Each
+    """A circularly doubly linked list is a cyclic collection of nodes whose head and tail nodes are connected. Each
     node contains a reference to the node preceding it, and a reference to the node succeeding it.
 
     Instantiating a circularly doubly linked list

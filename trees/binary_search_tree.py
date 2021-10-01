@@ -1,9 +1,9 @@
-from tree import Empty, Tree
 from binary_tree import BinaryTree
+from tree import Empty, Tree
 
 
 class BinarySearchTree(BinaryTree):
-    """ A binary search tree is a binary tree whose left child of each node contain an item less in value than itself,
+    """A binary search tree is a binary tree whose left child of each node contain an item less in value than itself,
     and the right child an item higher in value than itself. An in-order traversal of the binary search tree results
     to items arranged in ascending order.
 
@@ -124,6 +124,7 @@ class BinarySearchTree(BinaryTree):
         >>> next(tree).get_data()
         4
     """
+
     def __init__(self):
         super().__init__()
 
@@ -156,7 +157,7 @@ class BinarySearchTree(BinaryTree):
                 previous_node.children[0] = node
 
     def search(self, data):
-        """ Returns the position of a value within the tree, or None if the value doesn't exist in the tree. Time
+        """Returns the position of a value within the tree, or None if the value doesn't exist in the tree. Time
         complexity: O(n).
 
         :param data: the item to search

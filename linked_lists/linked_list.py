@@ -34,13 +34,20 @@ class LinkedList(ABC):
 
     class _Node(_BaseNode):
         def __init__(
-                self, data, previous_node: Union[_BaseNode, None] = None, next_node: Union[_BaseNode, None] = None
+            self,
+            data,
+            previous_node: Union[_BaseNode, None] = None,
+            next_node: Union[_BaseNode, None] = None,
         ):
             super().__init__(previous_node, next_node)
             self.data = data
 
     class _SentinelNode(_BaseNode):
-        def __init__(self, previous_node: Union[_BaseNode, None] = None, next_node: Union[_BaseNode, None] = None):
+        def __init__(
+            self,
+            previous_node: Union[_BaseNode, None] = None,
+            next_node: Union[_BaseNode, None] = None,
+        ):
             super().__init__(previous_node, next_node)
 
     def __init__(self):
@@ -50,14 +57,14 @@ class LinkedList(ABC):
         self.__current_node: Union[LinkedList._Node, None] = None
 
     def __len__(self):
-        """ Returns total number of items in list. Time complexity: O(1).
+        """Returns total number of items in list. Time complexity: O(1).
 
         :return: total number of items in list
         """
         return self._length
 
     def __repr__(self):
-        """ Returns a string representation of the list. Time complexity: O(n).
+        """Returns a string representation of the list. Time complexity: O(n).
 
         :return: string representation of the list
         """
@@ -65,7 +72,7 @@ class LinkedList(ABC):
             return "[]"
 
         current_node = self._head.next_node
-        s = f"["
+        s = "["
 
         while not isinstance(current_node, LinkedList._SentinelNode):
             s += f"{current_node.data}, "
@@ -74,19 +81,21 @@ class LinkedList(ABC):
         return f"{s[:-2]}]"
 
     def __iter__(self):
-        """ Returns a linked list iterable. Time complexity: O(1).
+        """Returns a linked list iterable. Time complexity: O(1).
 
         :return: linked list iterable
         """
         return self
 
     def __next__(self):
-        """ Returns next item of linked list iterator. Time complexity: O(1).
+        """Returns next item of linked list iterator. Time complexity: O(1).
 
         :return: next item
         :raises StopIteration: when the cursor denoting the current item surpasses the last item of the list
         """
-        self.__current_node = self._head if self.__current_node is None else self.__current_node.next_node
+        self.__current_node = (
+            self._head if self.__current_node is None else self.__current_node.next_node
+        )
         next_node = self.__current_node.next_node
 
         if isinstance(next_node, LinkedList._SentinelNode):
@@ -96,7 +105,7 @@ class LinkedList(ABC):
         return next_node.data
 
     def __getitem__(self, idx: Union[int, slice]):
-        """ Returns item at a specific index, or items in a slice range of the list. Time complexity: O(n).
+        """Returns item at a specific index, or items in a slice range of the list. Time complexity: O(n).
 
         :param idx: index or slice range of items within the list
         :return: item at a specific index, or items in a slice range
@@ -147,7 +156,7 @@ class LinkedList(ABC):
             raise TypeError
 
     def __setitem__(self, idx: int, data):
-        """ Replaces item at a specific index. Time complexity: O(n).
+        """Replaces item at a specific index. Time complexity: O(n).
 
         :param idx: index of item to be replaced
         :param data: new item to replace existing item
@@ -164,7 +173,7 @@ class LinkedList(ABC):
         current_node.data = data
 
     def __delitem__(self, idx: int):
-        """ Deletes item at a specific index. Time complexity: O(n).
+        """Deletes item at a specific index. Time complexity: O(n).
 
         :param idx: index of item to be deleted
         :raises IndexError: when the index passed is out of range
@@ -185,7 +194,7 @@ class LinkedList(ABC):
     @staticmethod
     @abstractmethod
     def _insert_between(new_node: _BaseNode, node1: _BaseNode, node2: _BaseNode):
-        """ Helper function that inserts a node between two other nodes
+        """Helper function that inserts a node between two other nodes
 
         :param new_node: node to be inserted
         :param node1: node at the start
@@ -196,7 +205,7 @@ class LinkedList(ABC):
     @staticmethod
     @abstractmethod
     def _remove_between(node1: _BaseNode, node2: _BaseNode):
-        """ Helper function that removes a node between two other nodes
+        """Helper function that removes a node between two other nodes
 
         :param node1: node at the start
         :param node2: node at the end
@@ -204,7 +213,7 @@ class LinkedList(ABC):
         raise NotImplementedError
 
     def insert(self, idx: int, data):
-        """ Add item at a specific index of the list. Time complexity: O(n).
+        """Add item at a specific index of the list. Time complexity: O(n).
 
         :param idx: index to insert item at
         :param data: item to insert
@@ -224,7 +233,7 @@ class LinkedList(ABC):
         self._insert_between(LinkedList._Node(data), previous_node, current_node)
 
     def insert_first(self, data):
-        """ Add item at the head of the list. Time complexity: O(1).
+        """Add item at the head of the list. Time complexity: O(1).
 
         :param data: item to insert
         """
@@ -233,26 +242,25 @@ class LinkedList(ABC):
 
     @abstractmethod
     def insert_last(self, data):
-        """ Add item at the tail of the list
+        """Add item at the tail of the list
 
         :param data: item to insert
         """
         raise NotImplementedError
 
     def append(self, data):
-        """ Alias of insert_last
+        """Alias of insert_last
 
         :param data: item to insert
         """
         self.insert_last(data)
 
     def remove_all(self):
-        """ Delete all items from the list. Time complexity: O(1).
-        """
+        """Delete all items from the list. Time complexity: O(1)."""
         self.__init__()
 
     def remove_first(self):
-        """ Delete item at the head of the list. Time complexity: O(1).
+        """Delete item at the head of the list. Time complexity: O(1).
 
         :raises Empty: when the list is empty
         """
@@ -266,12 +274,11 @@ class LinkedList(ABC):
 
     @abstractmethod
     def remove_last(self):
-        """ Delete item at the tail of the list
-        """
+        """Delete item at the tail of the list"""
         raise NotImplementedError
 
     def get_first(self):
-        """ Returns item at the head of the list. Time complexity: O(1).
+        """Returns item at the head of the list. Time complexity: O(1).
 
         :return: first item in list
         :raises Empty: when the list is empty
@@ -283,7 +290,7 @@ class LinkedList(ABC):
 
     @abstractmethod
     def get_last(self):
-        """ Returns item at the tail of the list
+        """Returns item at the tail of the list
 
         :return: last item in list
         """

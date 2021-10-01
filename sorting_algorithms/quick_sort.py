@@ -3,7 +3,7 @@ from typing import List
 
 
 def quick_sort(x: List) -> List:
-    """ Quick sort repeatedly moves smaller elements left and larger elements right relative to a pivot that divides
+    """Quick sort repeatedly moves smaller elements left and larger elements right relative to a pivot that divides
     the list into two smaller lists. The process is recursively repeated for the two smaller lists till all elements
     are fully sorted. It has an average time complexity of Θ(nlogn). Time complexity for the worst case, when the
     pivot creates the most unbalanced divisions for all recursions, is O(n^2). Time complexity for the best case, when
@@ -18,7 +18,7 @@ def quick_sort(x: List) -> List:
     a_list = copy.deepcopy(x)  # To avoid modifying the original list
 
     def sort_helper(y: List, start_idx: int, stop_idx: int) -> None:
-        """ Helper function to recursively sort the list
+        """Helper function to recursively sort the list
 
         :param y: list to be sorted
         :param start_idx: index at which sorting begins from
@@ -26,7 +26,7 @@ def quick_sort(x: List) -> List:
         """
         if start_idx < stop_idx:
             # ensure pivot is as close to the mid-point as possible while taking care of integer overflow
-            pivot_idx = start_idx + int((stop_idx - start_idx)/2)
+            pivot_idx = start_idx + int((stop_idx - start_idx) / 2)
             pivot = y[pivot_idx]
 
             i = 0

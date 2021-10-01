@@ -1,9 +1,9 @@
-from tree import Tree
 from binary_search_tree import BinarySearchTree
+from tree import Tree
 
 
 class AVLTree(BinarySearchTree):
-    """ An AVL tree is a binary search tree that is balanced. Whenever an item is inserted or deleted, the tree
+    """An AVL tree is a binary search tree that is balanced. Whenever an item is inserted or deleted, the tree
     rebalances itself. This ensures an a worst case search time of O(logn).
 
     Instantiating an AVL tree
@@ -123,6 +123,7 @@ class AVLTree(BinarySearchTree):
         >>> next(tree).get_data()
         4
     """
+
     def __init__(self):
         super().__init__()
 
@@ -144,10 +145,16 @@ class AVLTree(BinarySearchTree):
     def __get_balance(self, root_node):
         if root_node is None:
             return 0
-        left_height = 0 if root_node.children[0] is None else \
-            self.get_height_of_node(Tree._Position(self, root_node.children[0]))
-        right_height = 0 if root_node.children[1] is None else \
-            self.get_height_of_node(Tree._Position(self, root_node.children[1]))
+        left_height = (
+            0
+            if root_node.children[0] is None
+            else self.get_height_of_node(Tree._Position(self, root_node.children[0]))
+        )
+        right_height = (
+            0
+            if root_node.children[1] is None
+            else self.get_height_of_node(Tree._Position(self, root_node.children[1]))
+        )
         return left_height - right_height
 
     def __balance_tree(self):
@@ -174,7 +181,9 @@ class AVLTree(BinarySearchTree):
                     AVLTree.__rotate(current, root_node, parent, clockwise=True)
                     return current
                 else:
-                    new_node = Tree._Node(right.data, parent=parent, children=[current, None])
+                    new_node = Tree._Node(
+                        right.data, parent=parent, children=[current, None]
+                    )
                     AVLTree.__rotate(new_node, root_node, parent, clockwise=True)
                     current.parent = new_node
                     self.delete(Tree._Position(self, right))
@@ -186,7 +195,9 @@ class AVLTree(BinarySearchTree):
                     AVLTree.__rotate(current, root_node, parent, clockwise=False)
                     return current
                 else:
-                    new_node = Tree._Node(left.data, parent=parent, children=[None, current])
+                    new_node = Tree._Node(
+                        left.data, parent=parent, children=[None, current]
+                    )
                     AVLTree.__rotate(new_node, root_node, parent, clockwise=False)
                     current.parent = new_node
                     self.delete(Tree._Position(self, left))

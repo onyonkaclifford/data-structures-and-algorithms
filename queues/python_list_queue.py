@@ -1,8 +1,8 @@
-from queue1 import Queue, Empty
+from queue1 import Empty, Queue
 
 
 class PythonListQueue(Queue):
-    """ A queue implemented using the python list data structure.
+    """A queue implemented using the python list data structure.
 
     Instantiate a queue object
         >>> a_queue = PythonListQueue()
@@ -30,6 +30,7 @@ class PythonListQueue(Queue):
         >>> a_queue.dequeue()
         1
     """
+
     def __init__(self):
         self.__data_store = []
 

@@ -1,9 +1,10 @@
 from typing import Union
-from linked_list import LinkedList, Empty
+
+from linked_list import Empty, LinkedList
 
 
 class SinglyLinkedList(LinkedList):
-    """ A singly linked list is a linear collection of nodes whose head and tail nodes are unconnected. Each node
+    """A singly linked list is a linear collection of nodes whose head and tail nodes are unconnected. Each node
     contains a reference to the node succeeding it.
 
     Instantiating a singly linked list
@@ -142,11 +143,11 @@ class SinglyLinkedList(LinkedList):
 
     @staticmethod
     def _insert_between(
-            new_node: LinkedList._Node,
-            node1: Union[LinkedList._Node, LinkedList._SentinelNode],
-            node2: Union[LinkedList._Node, LinkedList._SentinelNode]
+        new_node: LinkedList._Node,
+        node1: Union[LinkedList._Node, LinkedList._SentinelNode],
+        node2: Union[LinkedList._Node, LinkedList._SentinelNode],
     ):
-        """ Helper function that inserts a node between two other nodes. Time complexity: O(1).
+        """Helper function that inserts a node between two other nodes. Time complexity: O(1).
 
         :param new_node: node to be inserted
         :param node1: node at the start
@@ -156,10 +157,10 @@ class SinglyLinkedList(LinkedList):
 
     @staticmethod
     def _remove_between(
-            node1: Union[LinkedList._Node, LinkedList._SentinelNode],
-            node2: Union[LinkedList._Node, LinkedList._SentinelNode]
+        node1: Union[LinkedList._Node, LinkedList._SentinelNode],
+        node2: Union[LinkedList._Node, LinkedList._SentinelNode],
     ):
-        """ Helper function that removes a node between two other nodes. Time complexity: O(1).
+        """Helper function that removes a node between two other nodes. Time complexity: O(1).
 
         :param node1: node at the start
         :param node2: node at the end
@@ -167,7 +168,7 @@ class SinglyLinkedList(LinkedList):
         node1.next_node = node2
 
     def insert_last(self, data):
-        """ Add item at the tail of the list. Time complexity: O(n).
+        """Add item at the tail of the list. Time complexity: O(n).
 
         :param data: item to insert
         """
@@ -180,10 +181,12 @@ class SinglyLinkedList(LinkedList):
             previous_node = current_node
             current_node = current_node.next_node
 
-        SinglyLinkedList._insert_between(LinkedList._Node(data), previous_node, current_node)
+        SinglyLinkedList._insert_between(
+            LinkedList._Node(data), previous_node, current_node
+        )
 
     def remove_last(self):
-        """ Delete item at the tail of the list. Time complexity: O(n).
+        """Delete item at the tail of the list. Time complexity: O(n).
 
         :raises Empty: when the list is empty
         """
@@ -203,7 +206,7 @@ class SinglyLinkedList(LinkedList):
         SinglyLinkedList._remove_between(previous_node, current_node.next_node)
 
     def get_last(self):
-        """ Returns item at the tail of the list. Time complexity: O(n).
+        """Returns item at the tail of the list. Time complexity: O(n).
 
         :return: last item in list
         :raises Empty: when the list is empty

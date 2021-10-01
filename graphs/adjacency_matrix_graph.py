@@ -192,13 +192,16 @@ class AdjacencyMatrixGraph(Graph):
         row = self.__adjacency_matrix[idx]
 
         return [
-            (self._keys[i], weight) for i, weight in enumerate(row)
+            (self._keys[i], weight)
+            for i, weight in enumerate(row)
             if not isinstance(weight, AdjacencyMatrixGraph._Empty)
         ]
 
     def add_vertex(self, key, value=None):
         super().add_vertex(key, value)
-        self.__adjacency_matrix.append([AdjacencyMatrixGraph._Empty() for _ in range(len(self._keys) - 1)])
+        self.__adjacency_matrix.append(
+            [AdjacencyMatrixGraph._Empty() for _ in range(len(self._keys) - 1)]
+        )
 
         for row in self.__adjacency_matrix:
             row.append(AdjacencyMatrixGraph._Empty())
@@ -257,10 +260,13 @@ class AdjacencyMatrixGraph(Graph):
                     if j == idx and not isinstance(weight, AdjacencyMatrixGraph._Empty):
                         vertices.append((self._keys[i], weight))
             else:
-                vertices.extend([
-                    (self._keys[j], weight) for j, weight in enumerate(row)
-                    if not isinstance(weight, AdjacencyMatrixGraph._Empty)
-                ])
+                vertices.extend(
+                    [
+                        (self._keys[j], weight)
+                        for j, weight in enumerate(row)
+                        if not isinstance(weight, AdjacencyMatrixGraph._Empty)
+                    ]
+                )
 
         return vertices
 
@@ -277,10 +283,13 @@ class AdjacencyMatrixGraph(Graph):
                         vertices.append((self._keys[i], weight))
             else:
                 if not self.is_directed():
-                    vertices.extend([
-                        (self._keys[j], weight) for j, weight in enumerate(row)
-                        if not isinstance(weight, AdjacencyMatrixGraph._Empty)
-                    ])
+                    vertices.extend(
+                        [
+                            (self._keys[j], weight)
+                            for j, weight in enumerate(row)
+                            if not isinstance(weight, AdjacencyMatrixGraph._Empty)
+                        ]
+                    )
 
         return vertices
 
@@ -294,13 +303,18 @@ class AdjacencyMatrixGraph(Graph):
             if i != idx:
                 if not self.is_directed():
                     for j, weight in enumerate(row):
-                        if j == idx and not isinstance(weight, AdjacencyMatrixGraph._Empty):
+                        if j == idx and not isinstance(
+                            weight, AdjacencyMatrixGraph._Empty
+                        ):
                             vertices.append((self._keys[i], weight))
             else:
-                vertices.extend([
-                    (self._keys[j], weight) for j, weight in enumerate(row)
-                    if not isinstance(weight, AdjacencyMatrixGraph._Empty)
-                ])
+                vertices.extend(
+                    [
+                        (self._keys[j], weight)
+                        for j, weight in enumerate(row)
+                        if not isinstance(weight, AdjacencyMatrixGraph._Empty)
+                    ]
+                )
 
         return vertices
 

@@ -6,13 +6,14 @@ class Empty(Exception):
 
 
 class Stack(ABC):
-    """ A stack is a Last-In-First-Out structure that supports insertion (pushing) and removal (popping) of elements
+    """A stack is a Last-In-First-Out structure that supports insertion (pushing) and removal (popping) of elements
     from the same end. The order in which elements are pushed into the stack is reversed when popping out elements from
     the stack.
     """
+
     @abstractmethod
     def __len__(self):
-        """ Returns the total number of elements stored in the stack
+        """Returns the total number of elements stored in the stack
 
         :returns: the total number of elements stored in the stack
         """
@@ -20,7 +21,7 @@ class Stack(ABC):
 
     @abstractmethod
     def is_empty(self):
-        """ Check if stack contains no elements
+        """Check if stack contains no elements
 
         :return: True if stack is empty, else False
         """
@@ -28,7 +29,7 @@ class Stack(ABC):
 
     @abstractmethod
     def push(self, x):
-        """ Insert element x to the top of the stack
+        """Insert element x to the top of the stack
 
         :param x: element to add to the stack
         """
@@ -36,7 +37,7 @@ class Stack(ABC):
 
     @abstractmethod
     def pop(self):
-        """ Remove an element from the top of the stack and return it
+        """Remove an element from the top of the stack and return it
 
         :return: element at top of stack
         """
@@ -44,7 +45,7 @@ class Stack(ABC):
 
     @abstractmethod
     def peek(self):
-        """ Return element at the top of the stack without removing it
+        """Return element at the top of the stack without removing it
 
         :return: element at top of stack
         """

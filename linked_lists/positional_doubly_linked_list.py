@@ -1,9 +1,9 @@
-from positional_linked_list import PositionalLinkedList
 from doubly_linked_list import DoublyLinkedList
+from positional_linked_list import PositionalLinkedList
 
 
 class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
-    """ A positional doubly linked list is a positional list implemented based on a doubly linked list.
+    """A positional doubly linked list is a positional list implemented based on a doubly linked list.
 
     Instantiating a positional doubly linked list
         >>> a_list = PositionalDoublyLinkedList()

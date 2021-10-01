@@ -3,7 +3,7 @@ from typing import List
 
 
 def bubble_sort(x: List) -> List:
-    """ Bubble sort repeatedly compares adjacent elements and swaps those that are wrongly ordered. This process is
+    """Bubble sort repeatedly compares adjacent elements and swaps those that are wrongly ordered. This process is
     repeated till the list is fully sorted. It has an average time complexity of Θ(n^2) due to the nesting of its two
     loops. Time complexity for the worst case, when the list is sorted in reverse order, is O(n^2). Time complexity for
     the best case, when the list is already sorted in the correct order, is Ω(n).
@@ -25,7 +25,10 @@ def bubble_sort(x: List) -> List:
 
             if a_list[current_idx] > a_list[next_idx]:
                 swapped = True
-                a_list[current_idx], a_list[next_idx] = a_list[next_idx], a_list[current_idx]
+                a_list[current_idx], a_list[next_idx] = (
+                    a_list[next_idx],
+                    a_list[current_idx],
+                )
 
         # If no swap takes place, it means that the list is fully sorted
         # The remaining loops can therefore be safely ignored

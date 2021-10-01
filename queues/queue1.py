@@ -6,13 +6,14 @@ class Empty(Exception):
 
 
 class Queue(ABC):
-    """ A queue is a First-In-First-Out structure that supports insertion (queueing) of elements at one end and removal
+    """A queue is a First-In-First-Out structure that supports insertion (queueing) of elements at one end and removal
     (dequeueing) of elements from the opposite end. The order in which elements are enqueued is maintained when
     dequeued them.
     """
+
     @abstractmethod
     def __len__(self):
-        """ Returns the total number of elements stored in the queue
+        """Returns the total number of elements stored in the queue
 
         :returns: the total number of elements stored in the queue
         """
@@ -20,7 +21,7 @@ class Queue(ABC):
 
     @abstractmethod
     def is_empty(self):
-        """ Check if queue contains no elements
+        """Check if queue contains no elements
 
         :return: True if queue is empty, else False
         """
@@ -28,7 +29,7 @@ class Queue(ABC):
 
     @abstractmethod
     def enqueue(self, x):
-        """ Insert element x to the end of the queue
+        """Insert element x to the end of the queue
 
         :param x: element to add to the queue
         """
@@ -36,7 +37,7 @@ class Queue(ABC):
 
     @abstractmethod
     def dequeue(self):
-        """ Remove first element of the queue and return it
+        """Remove first element of the queue and return it
 
         :return: first element of queue
         """
@@ -44,7 +45,7 @@ class Queue(ABC):
 
     @abstractmethod
     def get_first(self):
-        """ Return first element of the queue without removing it
+        """Return first element of the queue without removing it
 
         :return: first element of queue
         """

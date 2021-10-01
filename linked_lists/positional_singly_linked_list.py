@@ -3,7 +3,7 @@ from singly_linked_list import SinglyLinkedList
 
 
 class PositionalSinglyLinkedList(PositionalLinkedList, SinglyLinkedList):
-    """ A positional singly linked list is a positional list implemented based on a singly linked list.
+    """A positional singly linked list is a positional list implemented based on a singly linked list.
 
     Instantiating a positional singly linked list
         >>> a_list = PositionalSinglyLinkedList()

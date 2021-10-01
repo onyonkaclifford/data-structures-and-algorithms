@@ -2,7 +2,7 @@ from deque1 import Deque, Empty
 
 
 class PythonListDeque(Deque):
-    """ A deque implemented using the python list data structure.
+    """A deque implemented using the python list data structure.
 
     Instantiate a deque object
         >>> a_deque = PythonListDeque()
@@ -41,6 +41,7 @@ class PythonListDeque(Deque):
         >>> a_deque.dequeue_last()
         1
     """
+
     def __init__(self):
         self.__data_store = []
 

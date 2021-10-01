@@ -1,9 +1,10 @@
 from typing import Union
-from linked_list import LinkedList, Empty
+
+from linked_list import Empty, LinkedList
 
 
 class DoublyLinkedList(LinkedList):
-    """ A doubly linked list is a linear collection of nodes whose head and tail nodes are unconnected. Each node
+    """A doubly linked list is a linear collection of nodes whose head and tail nodes are unconnected. Each node
     contains a reference to the node preceding it, and a reference to the node succeeding it.
 
     Instantiating a doubly linked list
@@ -143,11 +144,11 @@ class DoublyLinkedList(LinkedList):
 
     @staticmethod
     def _insert_between(
-            new_node: LinkedList._Node,
-            node1: Union[LinkedList._Node, LinkedList._SentinelNode],
-            node2: Union[LinkedList._Node, LinkedList._SentinelNode]
+        new_node: LinkedList._Node,
+        node1: Union[LinkedList._Node, LinkedList._SentinelNode],
+        node2: Union[LinkedList._Node, LinkedList._SentinelNode],
     ):
-        """ Helper function that inserts a node between two other nodes. Time complexity: O(1).
+        """Helper function that inserts a node between two other nodes. Time complexity: O(1).
 
         :param new_node: node to be inserted
         :param node1: node at the start
@@ -158,10 +159,10 @@ class DoublyLinkedList(LinkedList):
 
     @staticmethod
     def _remove_between(
-            node1: Union[LinkedList._Node, LinkedList._SentinelNode],
-            node2: Union[LinkedList._Node, LinkedList._SentinelNode]
+        node1: Union[LinkedList._Node, LinkedList._SentinelNode],
+        node2: Union[LinkedList._Node, LinkedList._SentinelNode],
     ):
-        """ Helper function that removes a node between two other nodes. Time complexity: O(1).
+        """Helper function that removes a node between two other nodes. Time complexity: O(1).
 
         :param node1: node at the start
         :param node2: node at the end
@@ -169,15 +170,17 @@ class DoublyLinkedList(LinkedList):
         node1.next_node, node2.previous_node = node2, node1
 
     def insert_last(self, data):
-        """ Add item at the tail of the list. Time complexity: O(1).
+        """Add item at the tail of the list. Time complexity: O(1).
 
         :param data: item to insert
         """
         self._length += 1
-        DoublyLinkedList._insert_between(LinkedList._Node(data), self._tail.previous_node, self._tail)
+        DoublyLinkedList._insert_between(
+            LinkedList._Node(data), self._tail.previous_node, self._tail
+        )
 
     def remove_last(self):
-        """ Delete item at the tail of the list. Time complexity: O(1).
+        """Delete item at the tail of the list. Time complexity: O(1).
 
         :raises Empty: when the list is empty
         """
@@ -191,7 +194,7 @@ class DoublyLinkedList(LinkedList):
         DoublyLinkedList._remove_between(previous_node, self._tail)
 
     def get_last(self):
-        """ Returns item at the tail of the list. Time complexity: O(1).
+        """Returns item at the tail of the list. Time complexity: O(1).
 
         :return: last item in list
         :raises Empty: when the list is empty

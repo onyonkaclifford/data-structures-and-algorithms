@@ -28,10 +28,11 @@ class Queue(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def enqueue(self, x):
+    def enqueue(self, key, value):
         """Insert element x to the end of the queue
 
-        :param x: element to add to the queue
+        :param key: unique identifier of the element to add to the queue
+        :param value: element to add to the queue
         """
         raise NotImplementedError
 

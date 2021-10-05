@@ -23,18 +23,20 @@ class Deque(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def enqueue_first(self, x):
-        """Insert element x to the front of the deque
+    def enqueue_first(self, key, value):
+        """Insert an element to the front of the deque
 
-        :param x: element to add to the deque
+        :param key: unique identifier of the element to add to the queue
+        :param value: element to add to the queue
         """
         raise NotImplementedError
 
     @abstractmethod
-    def enqueue_last(self, x):
-        """Insert element x to the end of the deque
+    def enqueue_last(self, key, value):
+        """Insert an element to the end of the deque
 
-        :param x: element to add to the deque
+        :param key: unique identifier of the element to add to the queue
+        :param value: element to add to the queue
         """
         raise NotImplementedError
 

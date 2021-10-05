@@ -31,7 +31,7 @@ detail.
 Examples: array, doubly linked list.
 
 ## Tests
-To run tests: `python -m doctest -v */*.py`
+To run tests: `python -m doctest -v **/*.py`
 
 ## Code formatting and styling
 Isort, black and flake8 are used to format and style code. To automate this task, pre-commit hooks are used.

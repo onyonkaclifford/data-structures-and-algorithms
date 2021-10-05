@@ -1,2 +1,4 @@
 from python_list_queue import PythonListQueue
 from queue1 import Empty
+from sorted_list_priority_queue import SortedListPriorityQueue
+from unsorted_list_priority_queue import UnsortedListPriorityQueue

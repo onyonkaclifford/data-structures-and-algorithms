@@ -73,14 +73,15 @@ class Trie(Tree):
     class _Node(Tree._Node):
         def __init__(
             self,
-            data=None,
+            key=None,
             value=None,
             parent=None,
             children: Union[List, None] = None,
             end_of_string=False,
         ):
-            super().__init__(data, parent, children if children is not None else [])
-            self.value = value
+            super().__init__(
+                key, value, parent, children if children is not None else []
+            )
             self.end_of_string = end_of_string
 
     def __init__(self):
@@ -114,7 +115,7 @@ class Trie(Tree):
         for k in key:
             to_break = False
             for node in current_node.children:
-                if node.data == k:
+                if node.key == k:
                     current_node = node
                     path.append(node)
                     to_break = True
@@ -226,9 +227,7 @@ class Trie(Tree):
                 yield starting_with
 
             for child in children:
-                for string_data in get_strings_helper(
-                    child, starting_with + child.data
-                ):
+                for string_data in get_strings_helper(child, starting_with + child.key):
                     yield string_data
 
         try:

@@ -95,5 +95,5 @@ class BinaryTree(Tree):
                 yield i
 
     @abstractmethod
-    def insert(self, data):
-        super().insert(data)
+    def insert(self, key, value):
+        super().insert(key, value)

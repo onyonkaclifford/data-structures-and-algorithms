@@ -24,8 +24,9 @@ class Tree(ABC):
     """
 
     class _Node:
-        def __init__(self, data, parent=None, children: Union[List, None] = None):
-            self.data = data
+        def __init__(self, key, value, parent=None, children: Union[List, None] = None):
+            self.key = key
+            self.value = value
             self.parent = parent
             self.children = children if children is not None else []
 
@@ -75,7 +76,7 @@ class Tree(ABC):
 
             :returns: data stored in node contained in this position
             """
-            return self.__node.data
+            return self.__node.key, self.__node.value
 
     def __init__(self):
         self._root: Union[Tree._Node, None] = None
@@ -101,7 +102,7 @@ class Tree(ABC):
             num_of_children = len(children)
             last_child_idx = num_of_children - 1
 
-            data_dict["string_data"] += f"{current_position.get_data()}"
+            data_dict["string_data"] += f"{current_position.get_data()[0]}"
 
             for i, j in enumerate(children):
                 data_dict["string_data"] += "(" if i == 0 else ", "
@@ -420,9 +421,7 @@ class Tree(ABC):
             parent = node_to_delete.parent
             left = node_to_delete.children[0]
             right = node_to_delete.children[1]
-            is_left_child = (
-                None if parent is None else node_to_delete.data < parent.data
-            )
+            is_left_child = None if parent is None else node_to_delete.key < parent.key
 
             if left is None:
                 insert_node(right, is_left_child, parent)
@@ -439,7 +438,9 @@ class Tree(ABC):
                         self._root = current_node
                 else:
                     new_node = Tree._Node(
-                        right_child.data, children=[current_node, right]
+                        right_child.key,
+                        right_child.value,
+                        children=[current_node, right],
                     )
 
                     insert_node(new_node, is_left_child, parent)
@@ -455,9 +456,10 @@ class Tree(ABC):
         delete_node(node, is_root_node)
 
     @abstractmethod
-    def insert(self, data):
+    def insert(self, key, value):
         """Inserts a value into the tree
 
-        :param data: item to be added to the tree
+        :param key: unique identifier of the item to be added to the tree
+        :param value: item to be added to the tree
         """
         self._length += 1

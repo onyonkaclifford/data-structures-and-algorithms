@@ -10,10 +10,10 @@ class AVLTree(BinarySearchTree):
         >>> tree = AVLTree()
 
     Inserting an item to the tree
-        >>> tree.insert(5)
-        >>> tree.insert(4)
-        >>> tree.insert(6)
-        >>> tree.insert(10)
+        >>> tree.insert(5, 500)
+        >>> tree.insert(4, 400)
+        >>> tree.insert(6, 600)
+        >>> tree.insert(10, 10000)
 
     Check if a tree is empty
         >>> tree.is_empty()
@@ -26,7 +26,7 @@ class AVLTree(BinarySearchTree):
 
     Get item corresponding to a certain position
         >>> root.get_data()
-        5
+        (5, 500)
 
     Check if a position is owned by some tree
         >>> root.is_owned_by(tree)
@@ -37,17 +37,17 @@ class AVLTree(BinarySearchTree):
     Get children of some position
         >>> children = tree.get_children(root)
         >>> [i.get_data() for i in children]
-        [4, 6]
+        [(4, 400), (6, 600)]
 
     Get left child of some position
         >>> left_child = tree.get_left_child(root)
         >>> left_child.get_data()
-        4
+        (4, 400)
 
     Get right child of some position
         >>> right_child = tree.get_right_child(root)
         >>> right_child.get_data()
-        6
+        (6, 600)
 
     Deleting an item from the tree
         >>> position_to_delete = tree.get_right_child(right_child)
@@ -67,14 +67,14 @@ class AVLTree(BinarySearchTree):
 
     Get parent of some position
         >>> tree.get_parent(left_child).get_data()
-        5
+        (5, 500)
         >>> tree.get_parent(root) is None
         True
 
     Get siblings of some position
         >>> siblings = tree.get_siblings(left_child)
         >>> [i.get_data() for i in siblings]
-        [6]
+        [(6, 600)]
 
     Get height of some position
         >>> tree.get_height_of_node(left_child)
@@ -117,11 +117,11 @@ class AVLTree(BinarySearchTree):
     Get tree iterable
         >>> tree_iterable = iter(tree)
         >>> next(tree_iterable).get_data()
-        5
+        (5, 500)
 
     Get next item of tree iterator
         >>> next(tree).get_data()
-        4
+        (4, 400)
     """
 
     def __init__(self):
@@ -131,7 +131,7 @@ class AVLTree(BinarySearchTree):
     def __rotate(node_to_move, root_node, parent, clockwise):
         node_to_move.parent = parent
         if parent is not None:
-            is_left_child = root_node.data < parent.data
+            is_left_child = root_node.key < parent.key
             if is_left_child:
                 parent.children[0] = node_to_move
             else:
@@ -182,7 +182,7 @@ class AVLTree(BinarySearchTree):
                     return current
                 else:
                     new_node = Tree._Node(
-                        right.data, parent=parent, children=[current, None]
+                        right.key, right.value, parent=parent, children=[current, None]
                     )
                     AVLTree.__rotate(new_node, root_node, parent, clockwise=True)
                     current.parent = new_node
@@ -196,7 +196,7 @@ class AVLTree(BinarySearchTree):
                     return current
                 else:
                     new_node = Tree._Node(
-                        left.data, parent=parent, children=[None, current]
+                        left.key, left.value, parent=parent, children=[None, current]
                     )
                     AVLTree.__rotate(new_node, root_node, parent, clockwise=False)
                     current.parent = new_node
@@ -209,6 +209,6 @@ class AVLTree(BinarySearchTree):
         super().delete(position)
         self.__balance_tree()
 
-    def insert(self, data):
-        super().insert(data)
+    def insert(self, key, value):
+        super().insert(key, value)
         self.__balance_tree()

@@ -120,7 +120,7 @@ class BinaryExpressionTree(BinaryTree):
         return postfix_tokens
 
     def __insert_infix(self, data):
-        super().insert(data)
+        super().insert(data, None)
 
         if data not in "()+-*/":
             try:
@@ -129,7 +129,7 @@ class BinaryExpressionTree(BinaryTree):
                 raise ValueError(f"'{data}' is not a valid operator or operand")
 
         if self.is_empty():
-            self._root = BinaryTree._Node(None, children=[None, None])
+            self._root = BinaryTree._Node(None, None, children=[None, None])
             self.__current_node = self._root
 
             self.__insert_infix(data)
@@ -137,7 +137,7 @@ class BinaryExpressionTree(BinaryTree):
         else:
             if data == "(":
                 node = BinaryTree._Node(
-                    None, parent=self.__current_node, children=[None, None]
+                    None, None, parent=self.__current_node, children=[None, None]
                 )
                 self.__current_node.children[0] = node
 
@@ -149,37 +149,43 @@ class BinaryExpressionTree(BinaryTree):
             elif data in "+-*/":
                 if self.__current_node is None:
                     node = BinaryTree._Node(
-                        None, parent=self.__current_node, children=[self._root, None]
+                        None,
+                        None,
+                        parent=self.__current_node,
+                        children=[self._root, None],
                     )
                     new_right_node = BinaryTree._Node(
-                        None, parent=node, children=[None, None]
+                        None, None, parent=node, children=[None, None]
                     )
 
                     node.children[1] = new_right_node
                     self._root.parent = node
                     self._root = node
 
-                    node.data = data
+                    node.key = data
                     self.__current_node = new_right_node
 
-                elif self.__current_node.data is None:
+                elif self.__current_node.key is None:
                     node = BinaryTree._Node(
-                        None, parent=self.__current_node, children=[None, None]
+                        None, None, parent=self.__current_node, children=[None, None]
                     )
                     self.__current_node.children[1] = node
 
-                    self.__current_node.data = data
+                    self.__current_node.key = data
                     self.__current_node = node
 
                 else:
                     parent = self.__current_node.parent
 
-                    if parent is None or parent.data is not None:
+                    if parent is None or parent.key is not None:
                         node = BinaryTree._Node(
-                            None, parent=parent, children=[self.__current_node, None]
+                            None,
+                            None,
+                            parent=parent,
+                            children=[self.__current_node, None],
                         )
                         new_right_node = BinaryTree._Node(
-                            None, parent=node, children=[None, None]
+                            None, None, parent=node, children=[None, None]
                         )
 
                         self.__current_node.parent = node
@@ -194,24 +200,24 @@ class BinaryExpressionTree(BinaryTree):
                         else:
                             self._root = node
 
-                        node.data = data
+                        node.key = data
                         self.__current_node = new_right_node
 
                     else:
                         node = BinaryTree._Node(
-                            None, parent=parent, children=[None, None]
+                            None, None, parent=parent, children=[None, None]
                         )
                         parent.children[1] = node
 
-                        parent.data = data
+                        parent.key = data
                         self.__current_node = node
 
             else:
-                self.__current_node.data = data
+                self.__current_node.key = data
                 self.__current_node = self.__current_node.parent
 
     def __insert_prefix(self, data):
-        super().insert(data)
+        super().insert(data, None)
 
         if data not in "()+-*/":
             try:
@@ -220,20 +226,20 @@ class BinaryExpressionTree(BinaryTree):
                 raise ValueError(f"'{data}' is not a valid operator or operand")
 
         if self.is_empty():
-            self._root = BinaryTree._Node(data, children=[None, None])
+            self._root = BinaryTree._Node(data, None, children=[None, None])
             self.__current_node = self._root
 
         else:
             if self.__current_node.children[0] is None:
                 node = BinaryTree._Node(
-                    data, parent=self.__current_node, children=[None, None]
+                    data, None, parent=self.__current_node, children=[None, None]
                 )
                 self.__current_node.children[0] = node
                 if data in "+-*/":
                     self.__current_node = node
             elif self.__current_node.children[1] is None:
                 node = BinaryTree._Node(
-                    data, parent=self.__current_node, children=[None, None]
+                    data, None, parent=self.__current_node, children=[None, None]
                 )
                 self.__current_node.children[1] = node
                 if data in "+-*/":
@@ -242,14 +248,14 @@ class BinaryExpressionTree(BinaryTree):
                 while self.__current_node.children[1] is not None:
                     self.__current_node = self.__current_node.parent
                 node = BinaryTree._Node(
-                    data, parent=self.__current_node, children=[None, None]
+                    data, None, parent=self.__current_node, children=[None, None]
                 )
                 self.__current_node.children[1] = node
                 if data in "+-*/":
                     self.__current_node = node
 
     def __insert_postfix(self, data):
-        super().insert(data)
+        super().insert(data, None)
 
         if data not in "()+-*/":
             try:
@@ -258,13 +264,17 @@ class BinaryExpressionTree(BinaryTree):
                 raise ValueError(f"'{data}' is not a valid operator or operand")
 
         if self.__current_node is None:
-            self.__current_node = [BinaryTree._Node(data, children=[None, None])]
+            self.__current_node = [BinaryTree._Node(data, None, children=[None, None])]
         elif data in "+-*/":
             right = self.__current_node.pop()
             left = self.__current_node.pop()
-            self.__current_node.append(BinaryTree._Node(data, children=[left, right]))
+            self.__current_node.append(
+                BinaryTree._Node(data, None, children=[left, right])
+            )
         else:
-            self.__current_node.append(BinaryTree._Node(data, children=[None, None]))
+            self.__current_node.append(
+                BinaryTree._Node(data, None, children=[None, None])
+            )
 
         if len(self.__current_node) == 1:
             self._root = self.__current_node[0]
@@ -291,11 +301,12 @@ class BinaryExpressionTree(BinaryTree):
     def __refresh(self):
         self.__init__()
 
-    def insert(self, data):
+    def insert(self, data, _=None):
         """Inserts a value into the tree. Operators and operands inserted need to follow the infix notation when using
         this method.
 
         :param data: item to be added to the tree
+        :param _: this parameter is not used, and thus is ignored
         """
         self.__insert_infix(data)
 
@@ -310,13 +321,13 @@ class BinaryExpressionTree(BinaryTree):
         def evaluate_helper(node: BinaryTree._Node):
             try:
                 if node.children == [None, None]:
-                    return float(node.data)
+                    return float(node.key)
             except AttributeError:
                 raise SyntaxError
 
             left_result = evaluate_helper(node.children[0])
             right_result = evaluate_helper(node.children[1])
-            operator = node.data
+            operator = node.key
 
             if operator == "+":
                 return left_result + right_result

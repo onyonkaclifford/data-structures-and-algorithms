@@ -29,7 +29,7 @@ class Queue(ABC):
 
     @abstractmethod
     def enqueue(self, key, value):
-        """Insert element x to the end of the queue
+        """Insert an element to the end of the queue
 
         :param key: unique identifier of the element to add to the queue
         :param value: element to add to the queue

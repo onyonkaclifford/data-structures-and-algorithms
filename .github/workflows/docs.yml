@@ -8,9 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: docs
-      url: https://onyonkaclifford.github.io/data-structures-and-algorithms
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2

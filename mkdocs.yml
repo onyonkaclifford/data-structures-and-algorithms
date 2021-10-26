@@ -17,6 +17,10 @@ plugins:
             - import sys
             - sys.path.append("sorting_algorithms")
 
+            - import os
+            - from shutil import copyfile
+            - copyfile("README.md", os.path.join("docs", "index.md"))
+
 nav:
   - Home: index.md
   - Algorithms:

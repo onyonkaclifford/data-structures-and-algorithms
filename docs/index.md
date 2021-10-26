@@ -1,6 +1,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/onyonkaclifford/data-structures-and-algorithms/blob/main/LICENSE)
 [![Tests](https://github.com/onyonkaclifford/data-structures-and-algorithms/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/onyonkaclifford/data-structures-and-algorithms/actions/workflows/tests.yml)
 [![Lint](https://github.com/onyonkaclifford/data-structures-and-algorithms/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/onyonkaclifford/data-structures-and-algorithms/actions/workflows/lint.yml)
+[![Docs](https://github.com/onyonkaclifford/data-structures-and-algorithms/actions/workflows/docs.yml/badge.svg?branch=main)](https://onyonkaclifford.github.io/data-structures-and-algorithms)
 [![imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![code style: flake8](https://img.shields.io/badge/code%20style-flake8-orange.svg)](https://github.com/pycqa/flake8)

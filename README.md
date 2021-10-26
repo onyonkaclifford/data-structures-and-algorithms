@@ -5,7 +5,6 @@
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![code style: flake8](https://img.shields.io/badge/code%20style-flake8-orange.svg)](https://github.com/pycqa/flake8)
 
-# Data structures and algorithms
 Implementation of various data structures and algorithms
 
 ## Algorithms

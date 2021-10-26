@@ -1,0 +1,28 @@
+site_name: Data Structures and Algorithms
+site_description: Implementation of various data structures and algorithms
+site_url: https://onyonkaclifford.github.io/data-structures-and-algorithms
+repo_url: https://github.com/onyonkaclifford/data-structures-and-algorithms
+
+theme:
+  name: readthedocs
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          selection:
+            docstring_style: restructured-text
+          setup_commands:
+            - import sys
+            - sys.path.append("sorting_algorithms")
+
+nav:
+  - Home: index.md
+  - Algorithms:
+      - Sorting Algorithms:
+          - Bubble Sort: sorting_algorithms/bubble_sort.md
+          - Selection Sort: sorting_algorithms/selection_sort.md
+          - Insertion Sort: sorting_algorithms/insertion_sort.md
+          - Quick Sort: sorting_algorithms/quick_sort.md
+          - Merge Sort: sorting_algorithms/merge_sort.md

@@ -2,6 +2,8 @@ site_name: Data Structures and Algorithms
 site_description: Implementation of various data structures and algorithms
 site_url: https://onyonkaclifford.github.io/data-structures-and-algorithms
 repo_url: https://github.com/onyonkaclifford/data-structures-and-algorithms
+edit_uri: blob/main/docs/
+repo_name: onyonkaclifford/data-structures-and-algorithms
 
 theme:
   name: readthedocs

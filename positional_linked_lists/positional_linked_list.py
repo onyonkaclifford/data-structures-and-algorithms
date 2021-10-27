@@ -1,4 +1,9 @@
 from abc import ABC, abstractmethod
+from typing import Any, Union
+
+
+class Empty(Exception):
+    pass
 
 
 class PositionalLinkedList(ABC):
@@ -58,7 +63,7 @@ class PositionalLinkedList(ABC):
             return getattr(owner, method)(self.__node, *params)
 
         def get_data(self):
-            """Returns the data stored by the node held by this position. Time complexity: O(1).
+            """Return the data stored by the node held by this position. Time complexity: O(1).
 
             :returns: data stored in node contained in this position
             """
@@ -66,7 +71,7 @@ class PositionalLinkedList(ABC):
 
     @staticmethod
     def _invalidate_position(variables):
-        """Helper function that sets the belongs_to key of a dictionary to None. Time complexity: O(1).
+        """Helper function to set the belongs_to key of a dictionary to None. Time complexity: O(1).
 
         :returns: the passed dictionary with belongs_to set to None
         """
@@ -76,24 +81,24 @@ class PositionalLinkedList(ABC):
     @staticmethod
     @abstractmethod
     def _validate_node(node):
-        """Helper function that checks if a node is a sentinel. Returns None if the node is a sentinel, otherwise
-        returns the node itself. Time complexity: O(1).
+        """Helper function to check if a node is a sentinel. Returns None if the node is a sentinel, otherwise
+        returns the node itself.
 
         :param node: node to validate
         :returns: None if the node passed is a sentinel node, else returns the node that was passed
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def is_empty(self):
-        """Returns True if list is empty, else False
+    def is_empty(self) -> bool:
+        """Return True if list is empty, else False
 
         :return: True if list is empty, else False
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def insert_before(self, position: _Position, data):
+    def insert_before(self, position: _Position, data: Any) -> _Position:
         """Add item before the defined position within the list
 
         :param position: reference position
@@ -104,7 +109,7 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def insert_after(self, position: _Position, data):
+    def insert_after(self, position: _Position, data: Any) -> _Position:
         """Add item after the defined position within the list
 
         :param position: reference position
@@ -115,8 +120,8 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def get_before(self, position: _Position):
-        """Returns the position just before the passed position
+    def get_before(self, position: _Position) -> Union[_Position, None]:
+        """Return the position just before the passed position, None if the referenced before position doesn't exist
 
         :param position: reference position
         :returns: the position just before the passed position
@@ -125,8 +130,8 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def get_after(self, position: _Position):
-        """Returns the position just after the passed position
+    def get_after(self, position: _Position) -> Union[_Position, None]:
+        """Return the position just after the passed position, None if the referenced after position doesn't exist
 
         :param position: reference position
         :returns: the position just after the passed position
@@ -135,8 +140,8 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def remove_before(self, position: _Position):
-        """Deletes item just before the passed position
+    def remove_before(self, position: _Position) -> Any:
+        """Delete item just before the passed position
 
         :param position: reference position
         :returns: the deleted item
@@ -145,8 +150,8 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def remove_after(self, position: _Position):
-        """Deletes item just after the passed position
+    def remove_after(self, position: _Position) -> Any:
+        """Delete item just after the passed position
 
         :param position: reference position
         :returns: the deleted item
@@ -155,8 +160,8 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def remove(self, position: _Position):
-        """Deletes item at a specific position
+    def remove(self, position: _Position) -> Any:
+        """Delete item at a specific position
 
         :param position: position containing item to be deleted
         :returns: the deleted item
@@ -165,63 +170,64 @@ class PositionalLinkedList(ABC):
             raise ValueError("Position doesn't belong to this list")
 
     @abstractmethod
-    def insert_first(self, data):
+    def insert_first(self, data: Any) -> _Position:
         """Add item at the head of the list
 
         :param data: item to insert
         :returns: the position of the added item
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def insert_last(self, data):
+    def insert_last(self, data: Any) -> _Position:
         """Add item at the tail of the list
 
         :param data: item to insert
         :returns: the position of the added item
         """
-        raise NotImplementedError
+        pass
 
-    def append(self, data):
+    def append(self, data: Any) -> _Position:
         """Alias of insert_last
 
         :param data: item to insert
+        :returns: the position of the added item
         """
         return self.insert_last(data)
 
     @abstractmethod
-    def get_first(self):
-        """Returns the position of the item at the head of the list
+    def get_first(self) -> Union[_Position, None]:
+        """Return the position of the item at the head of the list, None if the list is empty
 
         :returns: the position of the item at the head of the list
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def get_last(self):
-        """Returns the position of the item at the tail of the list
+    def get_last(self) -> Union[_Position, None]:
+        """Return the position of the item at the tail of the list, None if the list is empty
 
         :returns: the position of the item at the tail of the list
         """
-        raise NotImplementedError
+        pass
 
-    def remove_first(self):
+    def remove_first(self) -> Any:
         """Delete item at the head of the list
 
         :returns: the deleted item
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def remove_last(self):
+    def remove_last(self) -> Any:
         """Delete item at the tail of the list
 
         :returns: the deleted item
         """
-        raise NotImplementedError
+        pass
 
-    def replace(self, position: _Position, data):
-        """Replaces item at a specific position. Time complexity: O(1).
+    def replace(self, position: _Position, data: Any) -> Any:
+        """Replace item at a specific position. Time complexity: O(1).
 
         :param position: reference position
         :param data: item to replace the existing item at the reference position

@@ -2,6 +2,4 @@ from circularly_doubly_linked_list import CircularlyDoublyLinkedList
 from circularly_singly_linked_list import CircularlySinglyLinkedList
 from doubly_linked_list import DoublyLinkedList
 from linked_list import Empty
-from positional_doubly_linked_list import PositionalDoublyLinkedList
-from positional_singly_linked_list import PositionalSinglyLinkedList
 from singly_linked_list import SinglyLinkedList

@@ -1,88 +1,108 @@
-from doubly_linked_list import DoublyLinkedList
+from typing import Any, Union
+
 from positional_linked_list import PositionalLinkedList
+
+from linked_lists import DoublyLinkedList
 
 
 class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
-    """A positional doubly linked list is a positional list implemented based on a doubly linked list.
+    """A positional doubly linked list is a positional list implemented based on a doubly linked list
 
-    Instantiating a positional doubly linked list
+    Instantiate a positional doubly linked list object
+
         >>> a_list = PositionalDoublyLinkedList()
 
-    Appending an item to the list
+    Append an item to the list
+
         >>> position = a_list.append(0)
         >>> position.get_data()
         0
 
     The L.append(x) method is an alias of L.insert_last(x)
+
         >>> position = a_list.insert_last(1)
         >>> position.get_data()
         1
 
-    Inserting an item at the head of the list
+    Insert an item at the head of the list
+
         >>> position = a_list.insert_first(2)
         >>> position.get_data()
         2
 
-    Inserting an item just before a certain position in the list
+    Insert an item just before a certain position in the list
+
         >>> new_position = a_list.insert_before(position, 3)
         >>> new_position.get_data()
         3
 
-    Inserting an item just after a certain position in the list
+    Insert an item just after a certain position in the list
+
         >>> new_position = a_list.insert_after(position, 4)
         >>> new_position.get_data()
         4
 
     Replace item at a specific position
+
         >>> a_list.replace(position, 100)
         2
 
-    Checking if a positional doubly linked list is empty
+    Check if a positional doubly linked list is empty
+
         >>> a_list.is_empty()
         False
         >>> PositionalDoublyLinkedList().is_empty()
         True
 
     Get first item of the list
+
         >>> position = a_list.get_first()
         >>> position.get_data()
         3
 
     Get last item of the list
+
         >>> position = a_list.get_last()
         >>> position.get_data()
         1
 
     Get item just before a certain position of the list
+
         >>> position = a_list.get_last()
         >>> before_position = a_list.get_before(position)
         >>> before_position.get_data()
         0
 
     Get item just after a certain position of the list
+
         >>> position = a_list.get_first()
         >>> after_position = a_list.get_after(position)
         >>> after_position.get_data()
         100
 
     Delete item just before a certain position from the list
+
         >>> a_list.remove_before(after_position)
         3
 
     Delete item just after a certain position from the list
+
         >>> a_list.remove_after(after_position)
         4
 
     Delete item in a certain position from the list
+
         >>> position = a_list.get_first()
         >>> a_list.remove(position)
         100
 
     Delete first item from the list
+
         >>> a_list.remove_first()
         0
 
     Delete last item from the list
+
         >>> a_list.remove_last()
         1
     """
@@ -97,10 +117,12 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
         else:
             return node
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return self._length == 0
 
-    def insert_before(self, position: PositionalLinkedList._Position, data):
+    def insert_before(
+        self, position: PositionalLinkedList._Position, data: Any
+    ) -> PositionalLinkedList._Position:
         super().insert_before(position, data)
 
         self._length += 1
@@ -111,7 +133,9 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
 
         return PositionalLinkedList._Position(self, new_node)
 
-    def insert_after(self, position: PositionalLinkedList._Position, data):
+    def insert_after(
+        self, position: PositionalLinkedList._Position, data: Any
+    ) -> PositionalLinkedList._Position:
         super().insert_after(position, data)
 
         self._length += 1
@@ -122,7 +146,9 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
 
         return PositionalLinkedList._Position(self, new_node)
 
-    def get_before(self, position: PositionalLinkedList._Position):
+    def get_before(
+        self, position: PositionalLinkedList._Position
+    ) -> Union[PositionalLinkedList._Position, None]:
         super().get_before(position)
 
         node = position.manipulate_node(self, "_validate_node", *[])
@@ -135,7 +161,9 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
         else:
             return PositionalLinkedList._Position(self, node_to_get)
 
-    def get_after(self, position: PositionalLinkedList._Position):
+    def get_after(
+        self, position: PositionalLinkedList._Position
+    ) -> Union[PositionalLinkedList._Position, None]:
         super().get_after(position)
 
         node = position.manipulate_node(self, "_validate_node", *[])
@@ -148,7 +176,7 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
         else:
             return PositionalLinkedList._Position(self, node_to_get)
 
-    def remove_before(self, position: PositionalLinkedList._Position):
+    def remove_before(self, position: PositionalLinkedList._Position) -> Any:
         super().remove_before(position)
 
         node = position.manipulate_node(self, "_validate_node", *[])
@@ -162,7 +190,7 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
 
         return node_to_delete.data
 
-    def remove_after(self, position: PositionalLinkedList._Position):
+    def remove_after(self, position: PositionalLinkedList._Position) -> Any:
         super().remove_after(position)
 
         node = position.manipulate_node(self, "_validate_node", *[])
@@ -176,7 +204,7 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
 
         return node_to_delete.data
 
-    def remove(self, position: PositionalLinkedList._Position):
+    def remove(self, position: PositionalLinkedList._Position) -> Any:
         super().remove(position)
 
         self._length -= 1
@@ -187,27 +215,27 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
 
         return node.data
 
-    def insert_first(self, data):
+    def insert_first(self, data: Any) -> PositionalLinkedList._Position:
         DoublyLinkedList.insert_first(self, data)
         return PositionalLinkedList._Position(self, self._head.next_node)
 
-    def insert_last(self, data):
+    def insert_last(self, data: Any) -> PositionalLinkedList._Position:
         DoublyLinkedList.insert_last(self, data)
         return PositionalLinkedList._Position(self, self._tail.previous_node)
 
-    def get_first(self):
+    def get_first(self) -> Union[PositionalLinkedList._Position, None]:
         if self._length == 0:
             return None
 
         return PositionalLinkedList._Position(self, self._head.next_node)
 
-    def get_last(self):
+    def get_last(self) -> Union[PositionalLinkedList._Position, None]:
         if self._length == 0:
             return None
 
         return PositionalLinkedList._Position(self, self._tail.previous_node)
 
-    def remove_first(self):
+    def remove_first(self) -> Any:
         if self._length == 0:
             return None
 
@@ -217,7 +245,7 @@ class PositionalDoublyLinkedList(PositionalLinkedList, DoublyLinkedList):
 
         return node_to_delete.data
 
-    def remove_last(self):
+    def remove_last(self) -> Any:
         if self._length == 0:
             return None
 

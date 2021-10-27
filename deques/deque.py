@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 
 class Empty(Exception):
@@ -6,68 +7,70 @@ class Empty(Exception):
 
 
 class Deque(ABC):
-    """A deque is a structure that supports insertion and removal of elements from either end. It's also referred to
+    """A deque is an ADT that supports insertion and removal of elements from either end. It's also referred to
     as a double-ended queue.
     """
 
     @abstractmethod
-    def __len__(self):
-        raise NotImplementedError
+    def __len__(self) -> int:
+        """Get the total number of elements stored in the deque
+
+        :returns: count of elements in deque
+        """
+        pass
 
     @abstractmethod
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """Check if deque contains no elements
 
         :return: True if deque is empty, else False
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def enqueue_first(self, key, value):
+    def enqueue_first(self, x: Any) -> None:
         """Insert an element to the front of the deque
 
-        :param key: unique identifier of the element to add to the queue
-        :param value: element to add to the queue
+        :param x: element to add to the deque
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def enqueue_last(self, key, value):
+    def enqueue_last(self, x: Any) -> None:
         """Insert an element to the end of the deque
 
-        :param key: unique identifier of the element to add to the queue
-        :param value: element to add to the queue
+        :param x: element to add to the deque
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def dequeue_first(self):
+    def dequeue_first(self) -> Any:
         """Remove first element of the deque and return it
 
         :return: first element of deque
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def dequeue_last(self):
+    def dequeue_last(self) -> Any:
         """Remove last element of the deque and return it
 
         :return: last element of deque
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def get_first(self):
+    def get_first(self) -> Any:
         """Return first element of the deque without removing it
 
         :return: first element of deque
         """
-        raise NotImplementedError
+        pass
 
     @abstractmethod
-    def get_last(self):
+    def get_last(self) -> Any:
         """Return last element of the deque without removing it
 
         :return: last element of deque
         """
-        raise NotImplementedError
+        pass

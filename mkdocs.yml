@@ -20,6 +20,8 @@ plugins:
             - sys.path.append("sorting_algorithms")
             - sys.path.append("stacks")
             - sys.path.append("deques")
+            - sys.path.append("queues")
+            - sys.path.append("priority_queues")
 
             - import os
             - from shutil import copyfile
@@ -38,6 +40,13 @@ nav:
       - Stacks:
           - Stack ADT: stacks/stack.md
           - List Stack: stacks/list_stack.md
+      - Queues:
+          - Queue ADT: queues/queue.md
+          - List Queue: queues/list_queue.md
       - Deques:
           - Deque ADT: deques/deque.md
           - List Deque: deques/list_deque.md
+      - Priority Queues:
+          - Priority Queue ADT: priority_queues/priority_queue.md
+          - Sorted List Priority Queue: priority_queues/sorted_list_priority_queue.md
+          - Unsorted List Priority Queue: priority_queues/unsorted_list_priority_queue.md

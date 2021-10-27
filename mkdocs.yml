@@ -21,6 +21,8 @@ plugins:
             - sys.path.append("stacks")
             - sys.path.append("deques")
             - sys.path.append("queues")
+            - sys.path.append("linked_lists")
+            - sys.path.append("positional_linked_lists")
             - sys.path.append("priority_queues")
 
             - import os
@@ -46,6 +48,16 @@ nav:
       - Deques:
           - Deque ADT: deques/deque.md
           - List Deque: deques/list_deque.md
+      - Linked Lists:
+          - Linked List ADT: linked_lists/linked_list.md
+          - Singly Linked List: linked_lists/singly_linked_list.md
+          - Circularly Singly Linked List: linked_lists/circularly_singly_linked_list.md
+          - Doubly Linked List: linked_lists/doubly_linked_list.md
+          - Circularly Doubly Linked List: linked_lists/circularly_doubly_linked_list.md
+      - Positional Linked Lists:
+          - Positional Linked List ADT: positional_linked_lists/positional_linked_list.md
+          - Positional Singly Linked List: positional_linked_lists/positional_singly_linked_list.md
+          - Positional Doubly Linked List: positional_linked_lists/positional_doubly_linked_list.md
       - Priority Queues:
           - Priority Queue ADT: priority_queues/priority_queue.md
           - Sorted List Priority Queue: priority_queues/sorted_list_priority_queue.md

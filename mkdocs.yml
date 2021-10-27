@@ -19,6 +19,7 @@ plugins:
             - import sys
             - sys.path.append("sorting_algorithms")
             - sys.path.append("stacks")
+            - sys.path.append("deques")
 
             - import os
             - from shutil import copyfile
@@ -37,3 +38,6 @@ nav:
       - Stacks:
           - Stack ADT: stacks/stack.md
           - List Stack: stacks/list_stack.md
+      - Deques:
+          - Deque ADT: deques/deque.md
+          - List Deque: deques/list_deque.md

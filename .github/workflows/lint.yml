@@ -16,6 +16,6 @@ jobs:
           pip install isort black flake8
       - name: Lint with isort, black and flake8
         run: |
-          isort --profile black **/*.py -c -v
-          black --check **/*.py
-          flake8 **/*.py
+          isort --profile black algorithms/**/*.py data_structures/**/*.py -c -v
+          black --check algorithms/**/*.py data_structures/**/*.py
+          flake8 algorithms/**/*.py data_structures/**/*.py

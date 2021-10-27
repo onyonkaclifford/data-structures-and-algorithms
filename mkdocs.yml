@@ -16,16 +16,16 @@ plugins:
           selection:
             docstring_style: restructured-text
           setup_commands:
-            - import sys
-            - sys.path.append("sorting_algorithms")
-            - sys.path.append("stacks")
-            - sys.path.append("deques")
-            - sys.path.append("queues")
-            - sys.path.append("linked_lists")
-            - sys.path.append("positional_linked_lists")
-            - sys.path.append("priority_queues")
-
             - import os
+            - import sys
+            - sys.path.append(os.path.join("algorithms", "sorting_algorithms"))
+            - sys.path.append(os.path.join("data_structures", "stacks"))
+            - sys.path.append(os.path.join("data_structures", "deques"))
+            - sys.path.append(os.path.join("data_structures", "queues"))
+            - sys.path.append(os.path.join("data_structures", "linked_lists"))
+            - sys.path.append(os.path.join("data_structures", "positional_linked_lists"))
+            - sys.path.append(os.path.join("data_structures", "priority_queues"))
+
             - from shutil import copyfile
             - copyfile("README.md", os.path.join("docs", "index.md"))
 
@@ -33,32 +33,32 @@ nav:
   - Home: index.md
   - Algorithms:
       - Sorting Algorithms:
-          - Bubble Sort: sorting_algorithms/bubble_sort.md
-          - Selection Sort: sorting_algorithms/selection_sort.md
-          - Insertion Sort: sorting_algorithms/insertion_sort.md
-          - Quick Sort: sorting_algorithms/quick_sort.md
-          - Merge Sort: sorting_algorithms/merge_sort.md
+          - Bubble Sort: algorithms/sorting_algorithms/bubble_sort.md
+          - Selection Sort: algorithms/sorting_algorithms/selection_sort.md
+          - Insertion Sort: algorithms/sorting_algorithms/insertion_sort.md
+          - Quick Sort: algorithms/sorting_algorithms/quick_sort.md
+          - Merge Sort: algorithms/sorting_algorithms/merge_sort.md
   - Data Structures:
       - Stacks:
-          - Stack ADT: stacks/stack.md
-          - List Stack: stacks/list_stack.md
+          - Stack ADT: data_structures/stacks/stack.md
+          - List Stack: data_structures/stacks/list_stack.md
       - Queues:
-          - Queue ADT: queues/queue.md
-          - List Queue: queues/list_queue.md
+          - Queue ADT: data_structures/queues/queue.md
+          - List Queue: data_structures/queues/list_queue.md
       - Deques:
-          - Deque ADT: deques/deque.md
-          - List Deque: deques/list_deque.md
+          - Deque ADT: data_structures/deques/deque.md
+          - List Deque: data_structures/deques/list_deque.md
       - Linked Lists:
-          - Linked List ADT: linked_lists/linked_list.md
-          - Singly Linked List: linked_lists/singly_linked_list.md
-          - Circularly Singly Linked List: linked_lists/circularly_singly_linked_list.md
-          - Doubly Linked List: linked_lists/doubly_linked_list.md
-          - Circularly Doubly Linked List: linked_lists/circularly_doubly_linked_list.md
+          - Linked List ADT: data_structures/linked_lists/linked_list.md
+          - Singly Linked List: data_structures/linked_lists/singly_linked_list.md
+          - Circularly Singly Linked List: data_structures/linked_lists/circularly_singly_linked_list.md
+          - Doubly Linked List: data_structures/linked_lists/doubly_linked_list.md
+          - Circularly Doubly Linked List: data_structures/linked_lists/circularly_doubly_linked_list.md
       - Positional Linked Lists:
-          - Positional Linked List ADT: positional_linked_lists/positional_linked_list.md
-          - Positional Singly Linked List: positional_linked_lists/positional_singly_linked_list.md
-          - Positional Doubly Linked List: positional_linked_lists/positional_doubly_linked_list.md
+          - Positional Linked List ADT: data_structures/positional_linked_lists/positional_linked_list.md
+          - Positional Singly Linked List: data_structures/positional_linked_lists/positional_singly_linked_list.md
+          - Positional Doubly Linked List: data_structures/positional_linked_lists/positional_doubly_linked_list.md
       - Priority Queues:
-          - Priority Queue ADT: priority_queues/priority_queue.md
-          - Sorted List Priority Queue: priority_queues/sorted_list_priority_queue.md
-          - Unsorted List Priority Queue: priority_queues/unsorted_list_priority_queue.md
+          - Priority Queue ADT: data_structures/priority_queues/priority_queue.md
+          - Sorted List Priority Queue: data_structures/priority_queues/sorted_list_priority_queue.md
+          - Unsorted List Priority Queue: data_structures/priority_queues/unsorted_list_priority_queue.md

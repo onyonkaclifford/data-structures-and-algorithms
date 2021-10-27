@@ -1,1 +1,0 @@
-::: stacks.list_stack

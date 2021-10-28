@@ -26,6 +26,7 @@ plugins:
             - sys.path.append(os.path.join("data_structures", "positional_linked_lists"))
             - sys.path.append(os.path.join("data_structures", "trees"))
             - sys.path.append(os.path.join("data_structures", "priority_queues"))
+            - sys.path.append(os.path.join("data_structures", "graphs"))
 
             - from shutil import copyfile
             - copyfile("README.md", os.path.join("docs", "index.md"))
@@ -70,3 +71,7 @@ nav:
           - Priority Queue ADT: data_structures/priority_queues/priority_queue.md
           - Sorted List Priority Queue: data_structures/priority_queues/sorted_list_priority_queue.md
           - Unsorted List Priority Queue: data_structures/priority_queues/unsorted_list_priority_queue.md
+      - Graphs:
+          - Graph ADT: data_structures/graphs/graph.md
+          - Adjacency List Graph: data_structures/graphs/adjacency_list_graph.md
+          - Adjacency Matrix Graph: data_structures/graphs/adjacency_matrix_graph.md

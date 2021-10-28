@@ -24,6 +24,7 @@ plugins:
             - sys.path.append(os.path.join("data_structures", "queues"))
             - sys.path.append(os.path.join("data_structures", "linked_lists"))
             - sys.path.append(os.path.join("data_structures", "positional_linked_lists"))
+            - sys.path.append(os.path.join("data_structures", "trees"))
             - sys.path.append(os.path.join("data_structures", "priority_queues"))
 
             - from shutil import copyfile
@@ -58,6 +59,13 @@ nav:
           - Positional Linked List ADT: data_structures/positional_linked_lists/positional_linked_list.md
           - Positional Singly Linked List: data_structures/positional_linked_lists/positional_singly_linked_list.md
           - Positional Doubly Linked List: data_structures/positional_linked_lists/positional_doubly_linked_list.md
+      - Trees:
+          - Tree ADT: data_structures/trees/tree.md
+          - Binary Tree ADT: data_structures/trees/binary_tree.md
+          - Binary Search Tree: data_structures/trees/binary_search_tree.md
+          - AVL Tree: data_structures/trees/avl_tree.md
+          - Binary Expression Tree: data_structures/trees/binary_expression_tree.md
+          - Trie: data_structures/trees/trie.md
       - Priority Queues:
           - Priority Queue ADT: data_structures/priority_queues/priority_queue.md
           - Sorted List Priority Queue: data_structures/priority_queues/sorted_list_priority_queue.md

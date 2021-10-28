@@ -1,0 +1,2457 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Implementation of various data structures and algorithms">
+      
+      
+      
+      
+        <link rel="canonical" href="https://onyonkaclifford.github.io/data-structures-and-algorithms/data_structures/positional_linked_lists/positional_singly_linked_list/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.5">
+    
+    
+      
+        <title>Positional Singly Linked List - Data Structures and Algorithms</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cdeb8541.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data_structures.positional_linked_lists.positional_singly_linked_list" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Data Structures and Algorithms" class="md-header__button md-logo" aria-label="Data Structures and Algorithms" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Data Structures and Algorithms
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Positional Singly Linked List
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/onyonkaclifford/data-structures-and-algorithms/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    onyonkaclifford/data-structures-and-algorithms
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Data Structures and Algorithms" class="md-nav__button md-logo" aria-label="Data Structures and Algorithms" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Data Structures and Algorithms
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/onyonkaclifford/data-structures-and-algorithms/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    onyonkaclifford/data-structures-and-algorithms
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Sorting Algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Sorting Algorithms" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Sorting Algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algorithms/sorting_algorithms/bubble_sort/" class="md-nav__link">
+        Bubble Sort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algorithms/sorting_algorithms/selection_sort/" class="md-nav__link">
+        Selection Sort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algorithms/sorting_algorithms/insertion_sort/" class="md-nav__link">
+        Insertion Sort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algorithms/sorting_algorithms/quick_sort/" class="md-nav__link">
+        Quick Sort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algorithms/sorting_algorithms/merge_sort/" class="md-nav__link">
+        Merge Sort
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Data Structures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Data Structures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Data Structures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Stacks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Stacks" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Stacks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stacks/stack/" class="md-nav__link">
+        Stack ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stacks/list_stack/" class="md-nav__link">
+        List Stack
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          Queues
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Queues" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Queues
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../queues/queue/" class="md-nav__link">
+        Queue ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../queues/list_queue/" class="md-nav__link">
+        List Queue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Deques
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deques" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Deques
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deques/deque/" class="md-nav__link">
+        Deque ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deques/list_deque/" class="md-nav__link">
+        List Deque
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Linked Lists
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linked Lists" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Linked Lists
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linked_lists/linked_list/" class="md-nav__link">
+        Linked List ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linked_lists/singly_linked_list/" class="md-nav__link">
+        Singly Linked List
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linked_lists/circularly_singly_linked_list/" class="md-nav__link">
+        Circularly Singly Linked List
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linked_lists/doubly_linked_list/" class="md-nav__link">
+        Doubly Linked List
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linked_lists/circularly_doubly_linked_list/" class="md-nav__link">
+        Circularly Doubly Linked List
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Positional Linked Lists
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Positional Linked Lists" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Positional Linked Lists
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../positional_linked_list/" class="md-nav__link">
+        Positional Linked List ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Positional Singly Linked List
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Positional Singly Linked List
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list" class="md-nav__link">
+    data_structures.positional_linked_lists.positional_singly_linked_list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList" class="md-nav__link">
+    PositionalSinglyLinkedList
+  </a>
+  
+    <nav class="md-nav" aria-label="PositionalSinglyLinkedList">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_after" class="md-nav__link">
+    get_after()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_before" class="md-nav__link">
+    get_before()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_first" class="md-nav__link">
+    get_first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_last" class="md-nav__link">
+    get_last()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_after" class="md-nav__link">
+    insert_after()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_before" class="md-nav__link">
+    insert_before()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_first" class="md-nav__link">
+    insert_first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_last" class="md-nav__link">
+    insert_last()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.is_empty" class="md-nav__link">
+    is_empty()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove" class="md-nav__link">
+    remove()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_after" class="md-nav__link">
+    remove_after()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_before" class="md-nav__link">
+    remove_before()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_first" class="md-nav__link">
+    remove_first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_last" class="md-nav__link">
+    remove_last()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../positional_doubly_linked_list/" class="md-nav__link">
+        Positional Doubly Linked List
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_6">
+          Trees
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Trees" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          Trees
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trees/tree/" class="md-nav__link">
+        Tree ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trees/binary_tree/" class="md-nav__link">
+        Binary Tree ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trees/binary_search_tree/" class="md-nav__link">
+        Binary Search Tree
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trees/avl_tree/" class="md-nav__link">
+        AVL Tree
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trees/binary_expression_tree/" class="md-nav__link">
+        Binary Expression Tree
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../trees/trie/" class="md-nav__link">
+        Trie
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7" type="checkbox" id="__nav_3_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_7">
+          Priority Queues
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Priority Queues" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_7">
+          <span class="md-nav__icon md-icon"></span>
+          Priority Queues
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../priority_queues/priority_queue/" class="md-nav__link">
+        Priority Queue ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../priority_queues/sorted_list_priority_queue/" class="md-nav__link">
+        Sorted List Priority Queue
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../priority_queues/unsorted_list_priority_queue/" class="md-nav__link">
+        Unsorted List Priority Queue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8" type="checkbox" id="__nav_3_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_8">
+          Graphs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graphs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Graphs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphs/graph/" class="md-nav__link">
+        Graph ADT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphs/adjacency_list_graph/" class="md-nav__link">
+        Adjacency List Graph
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphs/adjacency_matrix_graph/" class="md-nav__link">
+        Adjacency Matrix Graph
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list" class="md-nav__link">
+    data_structures.positional_linked_lists.positional_singly_linked_list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList" class="md-nav__link">
+    PositionalSinglyLinkedList
+  </a>
+  
+    <nav class="md-nav" aria-label="PositionalSinglyLinkedList">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_after" class="md-nav__link">
+    get_after()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_before" class="md-nav__link">
+    get_before()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_first" class="md-nav__link">
+    get_first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_last" class="md-nav__link">
+    get_last()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_after" class="md-nav__link">
+    insert_after()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_before" class="md-nav__link">
+    insert_before()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_first" class="md-nav__link">
+    insert_first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_last" class="md-nav__link">
+    insert_last()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.is_empty" class="md-nav__link">
+    is_empty()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove" class="md-nav__link">
+    remove()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_after" class="md-nav__link">
+    remove_after()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_before" class="md-nav__link">
+    remove_before()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_first" class="md-nav__link">
+    remove_first()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_last" class="md-nav__link">
+    remove_last()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/onyonkaclifford/data-structures-and-algorithms/blob/main/docs/data_structures/positional_linked_lists/positional_singly_linked_list.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Positional Singly Linked List</h1>
+                
+                <div class="doc doc-object doc-module">
+
+<a id="data_structures.positional_linked_lists.positional_singly_linked_list"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList" class="doc doc-heading">
+        <code>
+PositionalSinglyLinkedList            (<span title="positional_linked_list.PositionalLinkedList">PositionalLinkedList</span>, <span title="singly_linked_list.SinglyLinkedList">SinglyLinkedList</span>)
+        </code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>A positional singly linked list is a positional list implemented based on a singly linked list</p>
+<p>Instantiate a positional singly linked list object</p>
+<pre><code>&gt;&gt;&gt; a_list = PositionalSinglyLinkedList()
+</code></pre>
+<p>Append an item to the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.append(0)
+&gt;&gt;&gt; position.get_data()
+0
+</code></pre>
+<p>The L.append(x) method is an alias of L.insert_last(x)</p>
+<pre><code>&gt;&gt;&gt; position = a_list.insert_last(1)
+&gt;&gt;&gt; position.get_data()
+1
+</code></pre>
+<p>Insert an item at the head of the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.insert_first(2)
+&gt;&gt;&gt; position.get_data()
+2
+</code></pre>
+<p>Insert an item just before a certain position in the list</p>
+<pre><code>&gt;&gt;&gt; new_position = a_list.insert_before(position, 3)
+&gt;&gt;&gt; new_position.get_data()
+3
+</code></pre>
+<p>Insert an item just after a certain position in the list</p>
+<pre><code>&gt;&gt;&gt; new_position = a_list.insert_after(position, 4)
+&gt;&gt;&gt; new_position.get_data()
+4
+</code></pre>
+<p>Replace item at a specific position</p>
+<pre><code>&gt;&gt;&gt; a_list.replace(position, 100)
+2
+</code></pre>
+<p>Check if a positional singly linked list is empty</p>
+<pre><code>&gt;&gt;&gt; a_list.is_empty()
+False
+&gt;&gt;&gt; PositionalSinglyLinkedList().is_empty()
+True
+</code></pre>
+<p>Get first item of the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.get_first()
+&gt;&gt;&gt; position.get_data()
+3
+</code></pre>
+<p>Get last item of the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.get_last()
+&gt;&gt;&gt; position.get_data()
+1
+</code></pre>
+<p>Get item just before a certain position of the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.get_last()
+&gt;&gt;&gt; before_position = a_list.get_before(position)
+&gt;&gt;&gt; before_position.get_data()
+0
+</code></pre>
+<p>Get item just after a certain position of the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.get_first()
+&gt;&gt;&gt; after_position = a_list.get_after(position)
+&gt;&gt;&gt; after_position.get_data()
+100
+</code></pre>
+<p>Delete item just before a certain position from the list</p>
+<pre><code>&gt;&gt;&gt; a_list.remove_before(after_position)
+3
+</code></pre>
+<p>Delete item just after a certain position from the list</p>
+<pre><code>&gt;&gt;&gt; a_list.remove_after(after_position)
+4
+</code></pre>
+<p>Delete item in a certain position from the list</p>
+<pre><code>&gt;&gt;&gt; position = a_list.get_first()
+&gt;&gt;&gt; a_list.remove(position)
+100
+</code></pre>
+<p>Delete first item from the list</p>
+<pre><code>&gt;&gt;&gt; a_list.remove_first()
+0
+</code></pre>
+<p>Delete last item from the list</p>
+<pre><code>&gt;&gt;&gt; a_list.remove_last()
+1
+</code></pre>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_after" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the position just after the passed position, None if the referenced after position doesn't exist</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>reference position</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[positional_linked_list.PositionalLinkedList._Position]</code></td>
+      <td><p>the position just after the passed position</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_after</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_after</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">node_to_get</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">next_node</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_to_get</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_to_get</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_before" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the position just before the passed position, None if the referenced before position doesn't exist</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>reference position</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[positional_linked_list.PositionalLinkedList._Position]</code></td>
+      <td><p>the position just before the passed position</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_before</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_before</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+    <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">previous_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span>
+    <span class="n">current_node</span> <span class="o">=</span> <span class="n">previous_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">previous_node</span> <span class="o">=</span> <span class="n">current_node</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">previous_node</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">previous_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_first" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_first</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the position of the item at the head of the list, None if the list is empty</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[positional_linked_list.PositionalLinkedList._Position]</code></td>
+      <td><p>the position of the item at the head of the list</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_first</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.get_last" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_last</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the position of the item at the tail of the list, None if the list is empty</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[positional_linked_list.PositionalLinkedList._Position]</code></td>
+      <td><p>the position of the item at the tail of the list</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_last</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_after" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">insert_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add item after the defined position within the list</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>reference position</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>item to insert</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>_Position</code></td>
+      <td><p>the position of the added item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert_after</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert_after</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_Node</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_insert_between</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">next_node</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_before" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">insert_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add item before the defined position within the list</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>reference position</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>item to insert</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>_Position</code></td>
+      <td><p>the position of the added item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert_before</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">insert_before</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">new_node</span> <span class="o">=</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_Node</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+
+    <span class="n">previous_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span>
+    <span class="n">current_node</span> <span class="o">=</span> <span class="n">previous_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">previous_node</span> <span class="o">=</span> <span class="n">current_node</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_insert_between</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">previous_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_first" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">insert_first</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add item at the head of the list</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>item to insert</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>_Position</code></td>
+      <td><p>the position of the added item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert_first</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">:</span>
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">insert_first</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.insert_last" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">insert_last</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Add item at the tail of the list</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>item to insert</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>_Position</code></td>
+      <td><p>the position of the added item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">insert_last</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">:</span>
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">insert_last</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="n">current_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">return</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_node</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.is_empty" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return True if list is empty, else False</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if list is empty, else False</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">==</span> <span class="mi">0</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete item at a specific position</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>position containing item to be deleted</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>the deleted item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_invalidate_position&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+
+    <span class="n">previous_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span>
+    <span class="n">current_node</span> <span class="o">=</span> <span class="n">previous_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">previous_node</span> <span class="o">=</span> <span class="n">current_node</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_remove_between</span><span class="p">(</span><span class="n">previous_node</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">next_node</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_after" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete item just after the passed position</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>reference position</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>the deleted item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove_after</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+    <span class="n">node_to_delete</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_to_delete</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_remove_between</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">node_to_delete</span><span class="o">.</span><span class="n">next_node</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">node_to_delete</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_before" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete item just before the passed position</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>position</code></td>
+        <td><code>_Position</code></td>
+        <td><p>reference position</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>the deleted item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">:</span> <span class="n">PositionalLinkedList</span><span class="o">.</span><span class="n">_Position</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">remove_before</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+
+    <span class="n">node</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">manipulate_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_validate_node&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">[])</span>
+
+    <span class="n">pre_previous_node</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">previous_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span>
+    <span class="n">current_node</span> <span class="o">=</span> <span class="n">previous_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="n">current_node</span><span class="o">.</span><span class="n">data</span> <span class="o">!=</span> <span class="n">node</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">pre_previous_node</span> <span class="o">=</span> <span class="n">previous_node</span>
+        <span class="n">previous_node</span> <span class="o">=</span> <span class="n">current_node</span>
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">previous_node</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_remove_between</span><span class="p">(</span><span class="n">pre_previous_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">previous_node</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_first" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove_first</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete item at the head of the list</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>the deleted item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_first</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">node_to_delete</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">remove_first</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">node_to_delete</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="data_structures.positional_linked_lists.positional_singly_linked_list.PositionalSinglyLinkedList.remove_last" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">remove_last</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+</h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete item at the tail of the list</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>the deleted item</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>positional_linked_lists/positional_singly_linked_list.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">remove_last</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="n">node_to_delete</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_head</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_to_delete</span><span class="o">.</span><span class="n">next_node</span><span class="p">,</span> <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">_SentinelNode</span><span class="p">):</span>
+        <span class="n">node_to_delete</span> <span class="o">=</span> <span class="n">node_to_delete</span><span class="o">.</span><span class="n">next_node</span>
+
+    <span class="n">SinglyLinkedList</span><span class="o">.</span><span class="n">remove_last</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">node_to_delete</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../positional_linked_list/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Positional Linked List ADT" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Positional Linked List ADT
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../positional_doubly_linked_list/" class="md-footer__link md-footer__link--next" aria-label="Next: Positional Doubly Linked List" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Positional Doubly Linked List
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1e84347e.min.js"></script>
+      
+    
+  </body>
+</html>

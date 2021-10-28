@@ -10,22 +10,26 @@ class BinaryExpressionTree(BinaryTree):
     mathematical expressions with numerous operators and operands can be easily evaluated, as the expression is divided
     into smaller parts made up of only two operands and a single operator.
 
-    Instantiating a binary expression tree
+    Instantiate a binary expression tree object
+
         >>> tree = BinaryExpressionTree()
 
     Evaluate expressions, when tree parsing is based on infix notation
+
         >>> tree.evaluate("(2+2-23)", BinaryExpressionTree.Notation.Infix)
         -19.0
         >>> tree.evaluate("((434+42-2)*(43+4-2))", BinaryExpressionTree.Notation.Infix)
         21330.0
 
     Evaluate expressions, when tree parsing is based on prefix notation
+
         >>> tree.evaluate("(2+2-23)", BinaryExpressionTree.Notation.Prefix)
         -19.0
         >>> tree.evaluate("((434+42-2)*(43+4-2))", BinaryExpressionTree.Notation.Prefix)
         21330.0
 
     Evaluate expressions, when tree parsing is based on postfix notation
+
         >>> tree.evaluate("(2+2-23)", BinaryExpressionTree.Notation.Postfix)
         -19.0
         >>> tree.evaluate("((434+42-2)*(43+4-2))", BinaryExpressionTree.Notation.Postfix)
@@ -301,17 +305,17 @@ class BinaryExpressionTree(BinaryTree):
     def __refresh(self):
         self.__init__()
 
-    def insert(self, data, _=None):
-        """Inserts a value into the tree. Operators and operands inserted need to follow the infix notation when using
+    def insert(self, data: str, _=None) -> None:
+        """Insert a value into the tree. Operators and operands inserted need to follow the infix notation when using
         this method.
 
         :param data: item to be added to the tree
-        :param _: this parameter is not used, and thus is ignored
+        :param _: this parameter is not used, and is thus ignored
         """
         self.__insert_infix(data)
 
-    def evaluate(self, expression: str, notation: Notation = Notation.Infix):
-        """Returns the solution to a mathematical expression
+    def evaluate(self, expression: str, notation: Notation = Notation.Infix) -> float:
+        """Return the solution to a mathematical expression
 
         :param expression: the expression to be solved
         :param notation: the notation to use when building the parse tree

@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Generator, List, Union
+from typing import Any, Generator, Iterable, List, Union
 
 
 class Empty(Exception):
@@ -72,7 +72,7 @@ class Tree(ABC):
             return getattr(owner, method)(self.__node, *params)
 
         def get_data(self):
-            """Returns the data stored by the node held by this position. Time complexity: O(1).
+            """Return the data stored by the node held by this position. Time complexity: O(1).
 
             :returns: data stored in node contained in this position
             """
@@ -83,15 +83,15 @@ class Tree(ABC):
         self._length = 0
         self.__generator: Union[Generator, None] = None
 
-    def __len__(self):
-        """Returns total number of items in tree. Time complexity: O(1).
+    def __len__(self) -> int:
+        """Return total number of items in tree
 
-        :return: total number of items in tree
+        :return: count of items in tree
         """
         return self._length
 
-    def __repr__(self):
-        """Returns a string representation of the tree. Time complexity: O(n).
+    def __repr__(self) -> str:
+        """Return a string representation of the tree
 
         :return: the string representation of the tree
         """
@@ -116,18 +116,18 @@ class Tree(ABC):
         helper(Tree._Position(self, self._root))
         return data_dict["string_data"]
 
-    def __iter__(self):
-        """Returns a tree iterable. Time complexity: O(1).
+    def __iter__(self) -> Iterable:
+        """Return a tree iterable
 
         :return: tree iterable
         """
         return self
 
-    def __next__(self):
-        """Returns next item of tree iterator, implemented based on level-order traversal. Time complexity: O(1).
+    def __next__(self) -> _Position:
+        """Return next position of tree iterator, implemented based on level-order traversal
 
-        :return: next item
-        :raises StopIteration: when the cursor denoting the current item surpasses the last item of the tree
+        :return: next position
+        :raises StopIteration: when the cursor denoting the current position surpasses the last position of the tree
         """
         if self.__generator is None:
             self.__generator = self.traverse_tree_level_order()
@@ -142,7 +142,7 @@ class Tree(ABC):
 
     @staticmethod
     def _validate_node(node):
-        """Helper function that checks if the node passed is a tree node. Returns the node passed if the validation
+        """Helper function to check if the node passed is a tree node. Returns the node passed if the validation
         passes, else raises a TypeError. Time complexity: O(1).
 
         :param node: node to validate
@@ -155,7 +155,7 @@ class Tree(ABC):
 
     @staticmethod
     def _invalidate_position(variables):
-        """Helper function that sets the belongs_to key of a dictionary to None. Used to revoke the ownership of a
+        """Helper function to set the belongs_to key of a dictionary to None. Used to revoke the ownership of a
         position by this tree. Time complexity: O(1).
 
         :returns: the dictionary passed, with the belongs_to key set to None
@@ -163,15 +163,15 @@ class Tree(ABC):
         variables["belongs_to"] = None
         return variables
 
-    def is_empty(self):
-        """Returns True if tree is empty, else False. Time complexity: O(1).
+    def is_empty(self) -> bool:
+        """Return True if tree is empty, else False. Time complexity: O(1).
 
         :returns: True if tree is empty, else False
         """
         return self._root is None
 
-    def is_root(self, position: _Position):
-        """Checks if the passed position contains the root node. Time complexity: O(1).
+    def is_root(self, position: _Position) -> bool:
+        """Check if the passed position contains the root node. Time complexity: O(1).
 
         :returns: True if the passed position holds the root node, else False
         """
@@ -182,8 +182,8 @@ class Tree(ABC):
 
         return node.parent is None
 
-    def is_leaf(self, position: _Position):
-        """Checks if the passed position contains a leaf. Time complexity: O(1).
+    def is_leaf(self, position: _Position) -> bool:
+        """Check if the passed position contains a leaf. Time complexity: O(1).
 
         :returns: True if the passed position holds a leaf node, else False
         """
@@ -192,8 +192,8 @@ class Tree(ABC):
 
         return len(self.get_children(position)) == 0
 
-    def get_root(self):
-        """Returns the root position. Time complexity: O(1).
+    def get_root(self) -> Union[_Position, None]:
+        """Return the root position. Time complexity: O(1).
 
         :returns: the root position
         """
@@ -202,8 +202,8 @@ class Tree(ABC):
         else:
             return Tree._Position(self, self._root)
 
-    def get_parent(self, position: _Position):
-        """Returns the parent of the given position. Time complexity: O(1).
+    def get_parent(self, position: _Position) -> Union[_Position, None]:
+        """Return the parent of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose parent is being sought
         :returns: the position of parent of the node contained in the passed position. None if the position passed
@@ -219,8 +219,8 @@ class Tree(ABC):
         else:
             return Tree._Position(self, node.parent)
 
-    def get_children(self, position: _Position):
-        """Returns the children of the given position. Time complexity: O(1).
+    def get_children(self, position: _Position) -> Union[List[_Position], None]:
+        """Return the children of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose children are being sought
         :returns: the positions of the children of the node contained in the passed position. None if the position has
@@ -237,8 +237,8 @@ class Tree(ABC):
         else:
             return [Tree._Position(self, i) for i in children if i is not None]
 
-    def get_siblings(self, position: _Position):
-        """Returns the siblings of the given position. Time complexity: O(1).
+    def get_siblings(self, position: _Position) -> Union[List[_Position], None]:
+        """Return the siblings of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose children are being sought
         :returns: the positions of the siblings of the node contained in the passed position
@@ -254,8 +254,8 @@ class Tree(ABC):
 
         return [Tree._Position(self, i) for i in parent.children if i is not node]
 
-    def get_height_of_node(self, position: _Position):
-        """Returns the number of edges between a node and the farthest leaf among its descendants. Time complexity:
+    def get_height_of_node(self, position: _Position) -> int:
+        """Return the number of edges between a node and the farthest leaf among its descendants. Time complexity:
         O(n).
 
         :param position: position containing the node whose height is being sought
@@ -269,8 +269,8 @@ class Tree(ABC):
 
         return 1 + max(self.get_height_of_node(p) for p in self.get_children(position))
 
-    def get_height_of_tree(self):
-        """Returns the number of edges between the root node and the farthest leaf. Time complexity: O(n).
+    def get_height_of_tree(self) -> int:
+        """Return the number of edges between the root node and the farthest leaf. Time complexity: O(n).
 
         :returns: the number of edges between the root node and the farthest leaf
         """
@@ -278,8 +278,8 @@ class Tree(ABC):
             raise Empty("Tree is empty")
         return self.get_height_of_node(Tree._Position(self, self._root))
 
-    def get_depth_of_node(self, position: _Position):
-        """Returns the number of edges between a node and the root. Time complexity: O(n).
+    def get_depth_of_node(self, position: _Position) -> int:
+        """Return the number of edges between a node and the root. Time complexity: O(n).
 
         :param position: position containing the node whose depth is being sought
         :returns: the number of edges between a node and the root
@@ -291,15 +291,15 @@ class Tree(ABC):
             return 0
         return 1 + self.get_depth_of_node(self.get_parent(position))
 
-    def get_depth_of_tree(self):
-        """Returns the number of edges between the farthest leaf and the root. Time complexity: O(n).
+    def get_depth_of_tree(self) -> int:
+        """Return the number of edges between the farthest leaf and the root. Time complexity: O(n).
 
         :returns: the number of edges between the farthest leaf and the root
         """
         return self.get_height_of_tree()
 
-    def get_level_of_node(self, position: _Position):
-        """Returns the number of nodes between a node and the root, inclusive of itself. Time complexity: O(n).
+    def get_level_of_node(self, position: _Position) -> int:
+        """Return the number of nodes between a node and the root, inclusive of itself. Time complexity: O(n).
 
         :param position: position containing the node whose level is being sought
         :returns: the number of nodes between a node and the root, inclusive of itself
@@ -309,9 +309,9 @@ class Tree(ABC):
 
         return 1 + self.get_depth_of_node(position)
 
-    def traverse_subtree_pre_order(self, position: _Position):
+    def traverse_subtree_pre_order(self, position: _Position) -> Generator:
         """Pre-order traverse subtree whose root is the passed position and return a generator of the positions it
-        contains. Time complexity: O(1).
+        contains
 
         :param position: position containing the node that's the root of the subtree to be traversed
         :returns: a generator of the positions
@@ -324,8 +324,8 @@ class Tree(ABC):
             for j in self.traverse_subtree_pre_order(i):
                 yield j
 
-    def traverse_tree_pre_order(self):
-        """Pre-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+    def traverse_tree_pre_order(self) -> Generator:
+        """Pre-order traverse tree and return a generator of the positions it contains
 
         :returns: a generator of the positions
         """
@@ -335,9 +335,9 @@ class Tree(ABC):
             for i in self.traverse_subtree_pre_order(position):
                 yield i
 
-    def traverse_subtree_post_order(self, position: _Position):
+    def traverse_subtree_post_order(self, position: _Position) -> Generator:
         """Post-order traverse subtree whose root is the passed position and return a generator of the positions it
-        contains. Time complexity: O(1).
+        contains
 
         :param position: position containing the node that's the root of the subtree to be traversed
         :returns: a generator of the positions
@@ -350,8 +350,8 @@ class Tree(ABC):
                 yield j
         yield position
 
-    def traverse_tree_post_order(self):
-        """Post-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+    def traverse_tree_post_order(self) -> Generator:
+        """Post-order traverse tree and return a generator of the positions it contains
 
         :returns: a generator of the positions
         """
@@ -361,9 +361,9 @@ class Tree(ABC):
             for i in self.traverse_subtree_post_order(position):
                 yield i
 
-    def traverse_subtree_level_order(self, position: _Position):
+    def traverse_subtree_level_order(self, position: _Position) -> Generator:
         """Level-by-level traverse subtree whose root is the passed position and return a generator of the positions it
-        contains. Time complexity: O(1).
+        contains
 
         :param position: position containing the node that's the root of the subtree to be traversed
         :returns: a generator of the positions
@@ -387,8 +387,8 @@ class Tree(ABC):
             for j in helper(node, i):
                 yield j
 
-    def traverse_tree_level_order(self):
-        """Level-by-level traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+    def traverse_tree_level_order(self) -> Generator:
+        """Level-by-level traverse tree and return a generator of the positions it contains
 
         :returns: a generator of the positions
         """
@@ -398,8 +398,8 @@ class Tree(ABC):
             for i in self.traverse_subtree_level_order(position):
                 yield i
 
-    def delete(self, position: _Position):
-        """Deletes a value from the tree
+    def delete(self, position: _Position) -> None:
+        """Delete a value from the tree
 
         :param position: position containing the node to be removed from the tree
         """
@@ -456,8 +456,8 @@ class Tree(ABC):
         delete_node(node, is_root_node)
 
     @abstractmethod
-    def insert(self, key, value):
-        """Inserts a value into the tree
+    def insert(self, key: Any, value: Any) -> None:
+        """Insert a value into the tree
 
         :param key: unique identifier of the item to be added to the tree
         :param value: item to be added to the tree

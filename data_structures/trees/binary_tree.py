@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from typing import Generator, Union
 
 from tree import Tree
 
@@ -20,8 +21,8 @@ class BinaryTree(Tree):
     def __init__(self):
         super().__init__()
 
-    def get_left_child(self, position: Tree._Position):
-        """Returns the left child of the given position. Time complexity: O(1).
+    def get_left_child(self, position: Tree._Position) -> Union[Tree._Position, None]:
+        """Return the left child of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose left child is being sought
         :returns: the position of the left child of the node contained in the passed position. None if the position has
@@ -39,8 +40,8 @@ class BinaryTree(Tree):
             left_child = children[0]
             return Tree._Position(self, left_child) if left_child is not None else None
 
-    def get_right_child(self, position: Tree._Position):
-        """Returns the right child of the given position. Time complexity: O(1).
+    def get_right_child(self, position: Tree._Position) -> Union[Tree._Position, None]:
+        """Return the right child of the given position. Time complexity: O(1).
 
         :param position: position containing the node whose right child is being sought
         :returns: the position of the right child of the node contained in the passed position. None if the position has
@@ -60,9 +61,9 @@ class BinaryTree(Tree):
                 Tree._Position(self, right_child) if right_child is not None else None
             )
 
-    def traverse_subtree_in_order(self, position: Tree._Position):
+    def traverse_subtree_in_order(self, position: Tree._Position) -> Generator:
         """In-order traverse subtree whose root is the passed position and return a generator of the positions it
-        contains. Time complexity: O(1).
+        contains
 
         :param position: position containing the node that's the root of the subtree to be traversed
         :returns: a generator of the positions
@@ -83,8 +84,8 @@ class BinaryTree(Tree):
             for i in self.traverse_subtree_in_order(right_child):
                 yield i
 
-    def traverse_tree_in_order(self):
-        """In-order traverse tree and return a generator of the positions it contains. Time complexity: O(1).
+    def traverse_tree_in_order(self) -> Generator:
+        """In-order traverse tree and return a generator of the positions it contains
 
         :returns: a generator of the positions
         """

@@ -1,4 +1,4 @@
-from typing import Callable, List, Union
+from typing import Any, Callable, List, Union
 
 from tree import Tree
 
@@ -11,32 +11,38 @@ class Trie(Tree):
     possible combinations of words to complete the prefix can be generated. They may also be used as map structures such
     as associative arrays, which when passed a string key, return the corresponding value.
 
-    Instantiating a trie object
+    Instantiate a trie object
+
         >>> a_trie = Trie()
 
-    Inseerting a key and its corresponding value to the trie
+    Inseert a key and its corresponding value to the trie
+
         >>> a_trie.insert("Hello", 1)
         >>> a_trie.insert("World", 2)
 
-    Checking if a trie is empty
+    Check if a trie is empty
+
         >>> a_trie.is_empty()
         False
         >>> Trie().is_empty()
         True
 
     Get length of some trie
+
         >>> len(a_trie)
         10
         >>> len(Trie())
         0
 
     Get the string representation of some trie
+
         >>> a_trie
         (H(e(l(l(o)))), W(o(r(l(d)))))
         >>> str(a_trie)
         '(H(e(l(l(o)))), W(o(r(l(d)))))'
 
     Get value associated to some key
+
         >>> a_trie["Hello"]
         1
         >>> a_trie.get_value("World")
@@ -47,6 +53,7 @@ class Trie(Tree):
         KeyError: 'key not present in trie'
 
     Replace value associated to some key
+
         >>> a_trie["Hello"] = 100
         >>> a_trie.replace("World", 200)
         >>> a_trie["Hello, world"] = 300
@@ -55,12 +62,14 @@ class Trie(Tree):
         KeyError: 'key not present in trie'
 
     Find all strings with some certain prefix
+
         >>> a_trie.prefix_search("He")
         ['Hello']
         >>> a_trie.prefix_search("qwerty")
         []
 
     Delete a key, and thus its corresponding value too, from the trie
+
         >>> del a_trie["Hello"]
         >>> a_trie.delete("World")
         >>> del a_trie["Hello, world"]
@@ -88,21 +97,21 @@ class Trie(Tree):
         super().__init__()
         self._root = Trie._Node()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         representation = super().__repr__()
         return representation[
             4:
         ]  # Strip None (from root that holds no data) from the string
 
-    def __getitem__(self, key: str):
+    def __getitem__(self, key: str) -> Any:
         """Alias of get_value"""
         return self.get_value(key)
 
-    def __setitem__(self, key: str, value):
+    def __setitem__(self, key: str, value: Any) -> None:
         """Alias of replace"""
         self.replace(key, value)
 
-    def __delitem__(self, key: str):
+    def __delitem__(self, key: str) -> None:
         """Alias of delete"""
         self.delete(key)
 
@@ -130,15 +139,15 @@ class Trie(Tree):
 
         return current_node, path
 
-    def is_empty(self):
-        """Returns True if trie is empty, else False. Time complexity: O(1).
+    def is_empty(self) -> bool:
+        """Return True if trie is empty, else False. Time complexity: O(1).
 
         :returns: True if trie is empty, else False
         """
         return self._length == 0
 
-    def insert(self, key: str, value=None):
-        """Inserts a key and its corresponding value into the trie
+    def insert(self, key: str, value: Any = None) -> None:
+        """Insert a key and its corresponding value into the trie
 
         :param key: key to insert
         :param value: value corresponding to the key
@@ -153,8 +162,8 @@ class Trie(Tree):
         current_node.value = value
         current_node.end_of_string = True
 
-    def delete(self, key: str):
-        """Deletes a key and its corresponding value from the trie
+    def delete(self, key: str) -> None:
+        """Delete a key and its corresponding value from the trie
 
         :param key: key to delete
         """
@@ -183,8 +192,8 @@ class Trie(Tree):
                 previous_node.children.remove(node)
                 self._length -= 1
 
-    def get_value(self, key: str):
-        """Returns the value associated with a certain key
+    def get_value(self, key: str) -> Any:
+        """Return the value associated with a certain key
 
         :param key: key whose value is being sought
         :returns: value corresponding to the passed key
@@ -197,8 +206,8 @@ class Trie(Tree):
 
         return current_node.value
 
-    def replace(self, key: str, value):
-        """Replaces the value of a key with the new passed value
+    def replace(self, key: str, value: Any) -> None:
+        """Replace the value of a key with the new passed value
 
         :param key: key whose value is being replaced
         :param value: new value that's to replace current value of the passed key
@@ -210,8 +219,8 @@ class Trie(Tree):
         current_node, _ = self.__get_node_for_key(key, not_found_callable)
         current_node.value = value
 
-    def prefix_search(self, prefix: str):
-        """Returns all the combinations of words that can be formed from the passed prefix, as per to the trie
+    def prefix_search(self, prefix: str) -> List[str]:
+        """Return all the combinations of words that can be formed from the passed prefix, as per to the trie
 
         :param prefix: first part of the words being sought
         :returns: all the combinations of words that can be formed from the passed prefix
